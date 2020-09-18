@@ -10,7 +10,7 @@ from textblob import TextBlob
 # max num tweet queries per 15 minutes
 LIMIT = 300
 # file containing unprocessed tweets
-TWEETS_FILENAME = 'raw_tweets.pickle'
+TWEETS_FILENAME = 'preprocessed_tweets.pickle'
 
 
 class Twitter(object):
@@ -37,30 +37,8 @@ class Twitter(object):
         except:
             print("Error: Authentication Failed")
 
-    def get_tweets(self, query, count):
-        # figure out how many times need to call api to fetch
-        raw_tweets = []
-        try:
-            while count > 0:
-                if count >= LIMIT:
-                    # if still need more than limit, get limit
-                    single_call = self.api.search(q=query, count=LIMIT)
-                else:
-                    # if need less the limit, get what is left
-                    single_call = self.api.search(q=query, count=count)
-
-                count -= LIMIT
-                raw_tweets.append(single_call)
-
-                # can get 300 tweets every 15 mins
-                if count > 0:
-                    time.sleep(15.5 * 60)
-
-            return raw_tweets
-
-        except tweepy.TweepError as e:
-            # print error (if any)
-            print("Error : " + str(e))
+    def clean_tweet(self, tweet):
+        return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) | (\w+:\ / \ / \S+) ", " ", tweet).split())
 
     def get_sentiment(self, tweet):
 
@@ -68,47 +46,71 @@ class Twitter(object):
         polarity = blob.sentiment.polarity
 
         # get sentiment
-        if polarity > 0:
+        if polarity > 0.0:
             sentiment = 'positive'
-        elif polarity == 0:
+        elif polarity == 0.0:
             sentiment = 'neutral'
         else:
             sentiment = 'negative'
 
         return sentiment, polarity
 
-    def preprocess(self, tweet):
+    def get_data(self, tweet):
 
-        parsed_tweet = {}
+        # dict of tweet data
+        tweet_data = {}
 
-        # saving text of tweet
-        parsed_tweet['text'] = tweet.text
-        # parse tweet
-        parsed_tweet['word_list'] = re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) | (\w+:\ / \ / \S+) ", " ", tweet).split()
-        # saving sentiment of tweet
-        parsed_tweet['sentiment'], parsed_tweet['polarity'] = self.get_sentiment(''.join(parsed_tweet['word_dict']))
+        # get text of tweet
+        tweet_data['text'] = tweet.full_text
 
-        return tweet
+        # get list of separated words in tweet
+        tweet_data['word_list'] = re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) | (\w+:\ / \ / \S+) ", " ",
+                                         tweet_data['text']).lower().split()
+        # get language to make sure can analyze english-only
+        tweet_data['lang'] = tweet.lang
+
+        # get sentiment of tweet
+        tweet_data['sentiment'], tweet_data['polarity'] = self.get_sentiment(' '.join(tweet_data['word_list']))
+
+        return tweet_data
+
+    def get_tweets(self, query, count):
+
+        # figure out how many times need to call api to fetch
+        processed_tweets = []
+
+        while count > 0:
+            if count >= LIMIT:
+                # if still need more than limit, get limit
+                single_call = self.api.search(q=query, count=LIMIT)
+            else:
+                # if need less the limit, get what is left
+                single_call = self.api.search(q=query, count=count)
+
+            count -= LIMIT
+
+            for single_tweet in single_call:
+                full_tweet = self.api.get_status(single_tweet.id, tweet_mode='extended')
+                processed_tweets.append(self.get_data(full_tweet))
+
+            # can get 300 tweets every 15 mins
+            if count > 0:
+                time.sleep(15.5 * 60)
+
+        return processed_tweets
 
 
 # creating object of Twitter Class
 api = Twitter()
 
 # if file exists and has preexisting data
-raw_tweets = []
+tweets = []
 if os.path.isfile(TWEETS_FILENAME):
     with open(TWEETS_FILENAME, 'rb') as f:
-        raw_tweets = pickle.load(f)
+        tweets = pickle.load(f)
 else:
     # calling function to get tweets
-    raw_tweets = api.get_tweets(query='vaccine', count=1500)
+    processed = api.get_tweets(query='vaccine', count=50)
 
     with open(TWEETS_FILENAME, 'wb') as f:
-        pickle.dump(raw_tweets, f)
-
-processed = []
-for tweet in raw_tweets:
-    processed.append(api.preprocess(tweet))
-
-with open('clean_tweets.pickle', 'wb') as f:
-    pickle.dump(processed, f)
+        pickle.dump(processed, f)
