@@ -4,13 +4,13 @@ import re
 import time
 import tweepy
 from tweepy import OAuthHandler
-from tweepy import OAuthHandler
 from textblob import TextBlob
 
 # max num tweet queries per 15 minutes
 LIMIT = 300
+
 # file containing unprocessed tweets
-TWEETS_FILENAME = 'preprocessed_tweets.pickle'
+TWEETS_FILENAME = 'processed_tweets.pickle'
 
 
 class Twitter(object):
@@ -38,10 +38,13 @@ class Twitter(object):
             print("Error: Authentication Failed")
 
     def clean_tweet(self, tweet):
+
+        # remove special chars, links, and @usernames
         return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) | (\w+:\ / \ / \S+) ", " ", tweet).split())
 
     def get_sentiment(self, tweet):
 
+        # get sentiment index between -1 and 1
         blob = TextBlob(tweet)
         polarity = blob.sentiment.polarity
 
@@ -76,7 +79,7 @@ class Twitter(object):
 
     def get_tweets(self, query, count):
 
-        # figure out how many times need to call api to fetch
+        # store processed tweet data dicts in list
         processed_tweets = []
 
         while count > 0:
@@ -89,13 +92,14 @@ class Twitter(object):
 
             count -= LIMIT
 
+            # get full text and process single tweet
             for single_tweet in single_call:
                 full_tweet = self.api.get_status(single_tweet.id, tweet_mode='extended')
                 processed_tweets.append(self.get_data(full_tweet))
 
             # can get 300 tweets every 15 mins
             if count > 0:
-                time.sleep(15.5 * 60)
+                time.sleep(15.2 * 60)
 
         return processed_tweets
 
@@ -112,5 +116,6 @@ else:
     # calling function to get tweets
     processed = api.get_tweets(query='vaccine', count=50)
 
+    # create file and store pulled tweets
     with open(TWEETS_FILENAME, 'wb') as f:
         pickle.dump(processed, f)
