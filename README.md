@@ -9,7 +9,7 @@
 
 **Options:**
 - classifier: nltk naivebayes vs keras nn
-- sentiment polarity: manual vs textblob vs sanders' corpus
+- sentiment polarity: textblob -> get sentiment
 
 **Misc:**
 - [Zipf’s word frequency law in natural language](https://dwulff.github.io/_Naturallanguage/Literature/ZipfLaw2.pdf)

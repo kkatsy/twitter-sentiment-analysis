@@ -25,25 +25,22 @@ class Twitter(object):
         access_token = ''
         access_token_secret = ''
 
-        try:
-            # create OAuthHandler object
-            self.auth = OAuthHandler(consumer_key, consumer_secret)
+        # create OAuthHandler object
+        self.auth = OAuthHandler(consumer_key, consumer_secret)
 
-            # set access token and secret
-            self.auth.set_access_token(access_token, access_token_secret)
+        # set access token and secret
+        self.auth.set_access_token(access_token, access_token_secret)
 
-            # create tweepy API object to fetch tweets
-            self.api = tweepy.API(self.auth)
-        except:
-            print("Error: Authentication Failed")
+        # create tweepy API object to fetch tweets
+        self.api = tweepy.API(self.auth)
+
 
     def clean_tweet(self, tweet):
-
         # remove special chars, links, and @usernames
         return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) | (\w+:\ / \ / \S+) ", " ", tweet).split())
 
-    def get_sentiment(self, tweet):
 
+    def get_sentiment(self, tweet):
         # get sentiment index between -1 and 1
         blob = TextBlob(tweet)
         polarity = blob.sentiment.polarity
@@ -58,12 +55,12 @@ class Twitter(object):
 
         return sentiment, polarity
 
-    def get_data(self, tweet):
 
+    def get_data(self, tweet):
         # dict of tweet data
         tweet_data = {}
 
-        # get text of tweet
+        # get full text of tweet
         if 'RT' in tweet.full_text:
             tweet_data['text'] = tweet.retweeted_status.full_text
         else:
@@ -72,18 +69,17 @@ class Twitter(object):
         # get list of separated words in tweet
         tweet_data['word_list'] = re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) | (\w+:\ / \ / \S+) ", " ",
                                          tweet_data['text']).lower().split()
+
         # get language to make sure can analyze english-only
         tweet_data['lang'] = tweet.lang
-
-        # see if can get full tweet or not
 
         # get sentiment of tweet
         tweet_data['sentiment'], tweet_data['polarity'] = self.get_sentiment(' '.join(tweet_data['word_list']))
 
         return tweet_data
 
-    def get_tweets(self, query, count):
 
+    def get_tweets(self, query, count):
         # store processed tweet data dicts in list
         processed_tweets = []
 
@@ -104,7 +100,7 @@ class Twitter(object):
 
             # can get 300 tweets every 15 mins
             if count > 0:
-                time.sleep(15.2 * 60)
+                time.sleep(15.1 * 60)
 
         return processed_tweets
 
