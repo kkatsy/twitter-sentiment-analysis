@@ -64,13 +64,18 @@ class Twitter(object):
         tweet_data = {}
 
         # get text of tweet
-        tweet_data['text'] = tweet.full_text
+        if 'RT' in tweet.full_text:
+            tweet_data['text'] = tweet.retweeted_status.full_text
+        else:
+            tweet_data['text'] = tweet.full_text
 
         # get list of separated words in tweet
         tweet_data['word_list'] = re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) | (\w+:\ / \ / \S+) ", " ",
                                          tweet_data['text']).lower().split()
         # get language to make sure can analyze english-only
         tweet_data['lang'] = tweet.lang
+
+        # see if can get full tweet or not
 
         # get sentiment of tweet
         tweet_data['sentiment'], tweet_data['polarity'] = self.get_sentiment(' '.join(tweet_data['word_list']))
@@ -85,7 +90,7 @@ class Twitter(object):
         while count > 0:
             if count >= LIMIT:
                 # if still need more than limit, get limit
-                single_call = self.api.search(q=query, count=LIMIT)
+                single_call = self.api.search(q=query, count=LIMIT, tweet_mode='extended')
             else:
                 # if need less the limit, get what is left
                 single_call = self.api.search(q=query, count=count)
@@ -114,7 +119,7 @@ if os.path.isfile(TWEETS_FILENAME):
         tweets = pickle.load(f)
 else:
     # calling function to get tweets
-    processed = api.get_tweets(query='vaccine', count=50)
+    processed = api.get_tweets(query='vaccine', count=10)
 
     # create file and store pulled tweets
     with open(TWEETS_FILENAME, 'wb') as f:
