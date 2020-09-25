@@ -1,6 +1,5 @@
 import os
 import pickle
-import nltk
 import langid
 import re
 
@@ -65,8 +64,7 @@ for tweet in tweet_list:
     print('classified ' + str(classified) + ' out of ' + str(len(tweet_list)) + ' tweets')
     sentiment_batch.append(tweet)
 
-    if classified % 50 == 0:
-        with open('filtered_' + str(int(classified/50)) + '.pickle', 'wb') as file:
+    if (classified % 100 == 0) or (classified == len(tweet_list)):
+        with open('filtered_' + str(int(classified/100)) + '.pickle', 'wb') as file:
             pickle.dump(sentiment_batch, file)
         sentiment_batch = []
-
