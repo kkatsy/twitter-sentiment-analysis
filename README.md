@@ -27,7 +27,7 @@
     Sentiment percentage:
     positive -> 1074 (46.74 %), negative -> 558 (24.28 %), neutral -> 666 (28.98 %)
 
-   20 most common words:
+    20 most common words:
     positive -> ('will', 284), ('not', 188), ('flu', 155), ('people', 141), ('get', 129), ('covid', 124), ('no', 122), ('can', 103), ('just', 94), ('us', 88), ('one', 81), ('now', 79), ('effective', 77), ('virus', 73), ('trump', 73), ('new', 72), ('safe', 72), ('first', 68), ('available', 67), ('take', 66)
 
     negative -> ('will', 192), ('not', 112), ('people', 92), ('one', 86), ('make', 84), ('coronavirus', 82), ('no', 78), ('get', 74), ('fda', 68), ('election', 68), ('day', 67), ('covid', 62), ('trump', 60), ('virus', 60), ('unlikely', 60), ('standards', 59), ('announce', 57), ('flu', 54), ('tougher', 54), ('just', 53)
@@ -46,11 +46,11 @@
     Most common negative collocations:
     ('herd immunity'), ('bill gates'), ('6 months'), ('announce tougher'), ('tougher standards'), ('flu shot'), ('cleared election'), ('election day'), ('cdc scandal'), ('make unlikely'), ('public health'), ('wear mask'), ('unlikely one'), ('big pharma'), ('death toll')
 
-6. *Creating Train Set and Classifying Test Set:*
+6. **Creating Train Set and Classifying Test Set**
 
-7. *Sciency Conclusions:*
+7. **Sciency Conclusions**
 
-8. *Further Ruminations:*
+8. **Further Ruminations**
 
 
 **Files:**
