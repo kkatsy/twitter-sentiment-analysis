@@ -55,7 +55,7 @@
 
 **Files:**
 - *get_tweets.py*      - obtaining tweets using Twitter API, basic preprocessing, getting sentiment + polarity using Tweepy library
-- *process_tweets.py* - processing further, removing duplicates/retweets and stopwords, manual sentiment classification
+- *process_tweets.py*  - processing further, removing duplicates/retweets and stopwords, manual sentiment classification
 - *analyze_tweets.py*  - tweet tokenization, finding frequency distributions, gettings bigrams and most common collocations
 - *test_tweets.py*     - (TODO)
 - *store_tweets.py*    - (TODO)
@@ -68,7 +68,11 @@
 - [nltk stop words](https://www.geeksforgeeks.org/removing-stop-words-nltk-python/)
 - [building corpus + good tutorial](https://towardsdatascience.com/creating-the-twitter-sentiment-analysis-program-in-python-with-naive-bayes-classification-672e5589a7ed)
 - [Stopwords source](https://www.ranks.nl/stopwords)
+- [Bag of Words + TF-IDF](https://towardsdatascience.com/selenium-tweepy-to-scrap-tweets-from-tweeter-and-analysing-sentiments-1804db3478ac)
 
 
 **Misc:**
 - [Zipf’s word frequency law in natural language](https://dwulff.github.io/_Naturallanguage/Literature/ZipfLaw2.pdf)
+- [Negation handling in sentiment analysis](http://www.jcomputers.us/vol12/jcp1205-11.pdf)
+- [Mosterller and Wallace](http://pages.cs.wisc.edu/~gfung/federalist.pdf)
+- [Federalist papers](file:///Users/kk/Downloads/Dialnet-TestingDeltaOnTheDisputedFederalistPapers-4078330.pdf)

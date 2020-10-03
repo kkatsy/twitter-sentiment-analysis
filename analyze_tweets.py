@@ -60,7 +60,7 @@ neg_bigram = BigramCollocationFinder.from_words(neg_tokens)
 
 all_colloc = all_bigram.nbest(BigramAssocMeasures.likelihood_ratio, 15)
 pos_colloc = pos_bigram.nbest(BigramAssocMeasures.likelihood_ratio, 15)
-neg_colloc = neg_bigram .nbest(BigramAssocMeasures.likelihood_ratio, 15)
+neg_colloc = neg_bigram.nbest(BigramAssocMeasures.likelihood_ratio, 15)
 
 print('most common collocations overall: ', all_colloc)
 print('most common positive collocations: ', pos_colloc)
