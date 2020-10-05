@@ -46,17 +46,23 @@
     Most common negative collocations:
     ('herd immunity'), ('bill gates'), ('6 months'), ('announce tougher'), ('tougher standards'), ('flu shot'), ('cleared election'), ('election day'), ('cdc scandal'), ('make unlikely'), ('public health'), ('wear mask'), ('unlikely one'), ('big pharma'), ('death toll')
 
-6. **Creating Train Set and Classifying Test Set**
+6. **Creating Train Set and Test Set**
 
-7. **Sciency Conclusions**
+7. **NLTK and Naive Bayes**
+   *Bag of Words:*
+   Initial accuracy:                   0.7458563535911602
+   With top ten collocations:          0.7821229050279329
 
-8. **Further Ruminations**
+8. **Sciency Conclusions**
+
+9. **Further Ruminations**
 
 
 **Files:**
 - *get_tweets.py*      - obtaining tweets using Twitter API, basic preprocessing, getting sentiment + polarity using Tweepy library
 - *process_tweets.py*  - processing further, removing duplicates/retweets and stopwords, manual sentiment classification
 - *analyze_tweets.py*  - tweet tokenization, finding frequency distributions, gettings bigrams and most common collocations
+- *naive_bayes.py*     - creating equal size train/test sets, BoW vectorization, plus collocations, nltk NaiveBayes classification
 - *test_tweets.py*     - (TODO)
 - *store_tweets.py*    - (TODO)
 
