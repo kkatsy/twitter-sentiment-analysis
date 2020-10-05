@@ -50,8 +50,8 @@
 
 7. **NLTK and Naive Bayes**
    *Bag of Words:*
-   Initial accuracy:                   0.7458563535911602
-   With top ten collocations:          0.7821229050279329
+- Initial accuracy:                   0.7458563535911602
+- With top ten collocations:          0.7821229050279329
 
 8. **Sciency Conclusions**
 
