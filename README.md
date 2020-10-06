@@ -11,6 +11,17 @@
 
 4. **Frequency Distributions**
 
+ *According to my Tweepy's get_sentiment classification:*
+
+    Sentiment percentage:
+    positive -> 1074 (46.74 %), negative -> 558 (24.28 %), neutral -> 666 (28.98 %)
+
+    20 most common words:
+    positive -> ('will', 284), ('not', 188), ('flu', 155), ('people', 141), ('get', 129), ('covid', 124), ('no', 122), ('can', 103), ('just', 94), ('us', 88), ('one', 81), ('now', 79), ('effective', 77), ('virus', 73), ('trump', 73), ('new', 72), ('safe', 72), ('first', 68), ('available', 67), ('take', 66)
+
+    negative -> ('will', 192), ('not', 112), ('people', 92), ('one', 86), ('make', 84), ('coronavirus', 82), ('no', 78), ('get', 74), ('fda', 68), ('election', 68), ('day', 67), ('covid', 62), ('trump', 60), ('virus', 60), ('unlikely', 60), ('standards', 59), ('announce', 57), ('flu', 54), ('tougher', 54), ('just', 53)
+
+
     *According to my manual sentiment classification:*
 
     Sentiment percentage:
@@ -21,17 +32,28 @@
 
     negative -> ('will', 292), ('not', 242), ('people', 177), ('no', 176), ('trump', 146), ('get'  , 123), ('just', 115), ('covid'     , 113), ('flu', 106), ('virus', 98), ('us' , 97), ('take'     , 96), ('can' , 94), ('one'     , 92), ('like', 78), ('now', 69), ('going', 65), ('even' , 62), ('coronavirus', 60), ('make'     , 59)
 
-
-    *According to my Tweepy's get_sentiment classification:*
-
-    Sentiment percentage:
-    positive -> 1074 (46.74 %), negative -> 558 (24.28 %), neutral -> 666 (28.98 %)
-
-    20 most common words:
-    positive -> ('will', 284), ('not', 188), ('flu', 155), ('people', 141), ('get', 129), ('covid', 124), ('no', 122), ('can', 103), ('just', 94), ('us', 88), ('one', 81), ('now', 79), ('effective', 77), ('virus', 73), ('trump', 73), ('new', 72), ('safe', 72), ('first', 68), ('available', 67), ('take', 66)
-
-    negative -> ('will', 192), ('not', 112), ('people', 92), ('one', 86), ('make', 84), ('coronavirus', 82), ('no', 78), ('get', 74), ('fda', 68), ('election', 68), ('day', 67), ('covid', 62), ('trump', 60), ('virus', 60), ('unlikely', 60), ('standards', 59), ('announce', 57), ('flu', 54), ('tougher', 54), ('just', 53)
-
+| rank  | positive  | negative  |
+|---|:---:|---:|
+| 1  | 'will', 103  |  'will', 292 |
+| 2 |  'flu', 77 |  'not', 242 |
+| 3  |  'not', 58 | 'people', 177  |
+|  4 | 'get', 54)  | 'no', 176  |
+|  5 |  'can', 51 |  'trump', 146 |
+|  6 | 'people', 45  | 'get' , 123  |
+| 7  | 'covid', 41  | 'just', 115  |
+| 8  | 'coronavirus', 36  | 'covid', 113  |
+|  9 |  'no', 34 | 'flu', 106  |
+| 10 | 'safe', 34  |  'virus', 98 |
+| 11  | 'now', 33  | 'us', 97  |
+| 12  | 'countries', 33  |  'take', 96 |
+|  13 | 'need', 32  |  'can' , 94 |
+|  14 | 'vaccines', 32  | 'one', 92  |
+| 15  | 'us', 31  | 'like', 78  |
+|  16 |  'one', 29 | 'now', 69  |
+| 17  |  'first', 29 | 'going', 65  |
+|  18 | 'virus', 27  |  'even', 62 |
+|  19 | 'effective', 27  | 'coronavirus', 60  |
+| 20  |  'available', 27 | 'make', 59  |
 
     Comparing this data, it is quite clear that the Tweepy get_sentiment classification labeled considerably more tweets as 'positive' than did I manually. I hypothesize that the two main reasons for this is: 1) lack of context and 2)sarcasm. Many of the tweets that I labeled as 'negative' were sarcastically making fun of an original tweet or an opposing viewpoint, and it is not surprising that a non-human classifier would fail to recognize a negative sentiment if a tweet contained enough positive words.
 
