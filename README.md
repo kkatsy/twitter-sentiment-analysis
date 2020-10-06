@@ -90,8 +90,9 @@
     <table>
 
     <tr><td>
-    | Most common positive collocations:  |
-    |---|
+
+    | Most common positive collocations:|
+    |:---:|
     |'herd immunity'|
     |'156 countries'|
     |'announce tougher'|
@@ -109,8 +110,9 @@
     |'covax facility'|
 
     </td><td>
+
     | Most common negative collocations:  |
-    |---|
+    |:---:|
     |'herd immunity'|
     |'bill gates'|
     |'6 months'|
@@ -132,7 +134,7 @@
 6. **Creating Train Set and Test Set**
 
 7. **NLTK and Naive Bayes**
-   *Bag of Words:*
+   *Bag of Words Vectorization:*
 - Initial accuracy:                   0.7458563535911602
 - With top ten collocations:          0.7821229050279329
 
@@ -146,7 +148,7 @@
 - *process_tweets.py*  - processing further, removing duplicates/retweets and stopwords, manual sentiment classification
 - *analyze_tweets.py*  - tweet tokenization, finding frequency distributions, gettings bigrams and most common collocations
 - *naive_bayes.py*     - creating equal size train/test sets, BoW vectorization, plus collocations, nltk NaiveBayes classification
-- *test_tweets.py*     - (TODO)
+- *keras_nn.py*        - (TODO)
 - *store_tweets.py*    - (TODO)
 
 
