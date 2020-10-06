@@ -87,8 +87,19 @@
 
 5. **Most Common Collocations**
 
-    Most common collocations overall:
-    ('tougher standards'), ('announce tougher'), ('election day'), ('cleared election'), ('make unlikely'), ('herd' immunity'), ('unlikely one'), ('fda announce'), ('will cleared'), ('standards coronavirus'), ('bill gates'), ('coronavirus make'), ('6 months'), ('phase 3'), ('washington post')
+    <table>
+    <tr><th>Most common positive collocations: </th><th>Most common negative collocations:</th></tr>
+    <tr><td>
+
+    |'herd immunity'|
+    |'156 countries'|
+
+    </td><td>
+
+    |'herd immunity'|
+    |'bill gates'|
+
+    </td></tr> </table>
 
     Most common positive collocations:
     ('herd immunity'), ('156 countries'), ('announce tougher'), ('tougher standards'), ('cleared election'), ('yellow fever'), ('safe effective'), ('freedom choice'), ('flu shot'), ('important ever'), ('election day'), ('allocation deal'), ('make unlikely'), ('medical freedom'), ('covax facility')
@@ -130,5 +141,4 @@
 **Misc Reading Material:**
 - [Zipf’s word frequency law in natural language](https://dwulff.github.io/_Naturallanguage/Literature/ZipfLaw2.pdf)
 - [Negation handling in sentiment analysis](http://www.jcomputers.us/vol12/jcp1205-11.pdf)
-- [Mosterller and Wallace](http://pages.cs.wisc.edu/~gfung/federalist.pdf)
-- [Federalist papers](file:///Users/kk/Downloads/Dialnet-TestingDeltaOnTheDisputedFederalistPapers-4078330.pdf)
+- [The Disputed Federalist Papers](http://pages.cs.wisc.edu/~gfung/federalist.pdf)
