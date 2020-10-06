@@ -4,7 +4,7 @@
     I used the Tweepy library to access the Twitter API and gather tweets. Before storing the queries, I preprocessed the tweet text by removing special characters, numbers, and usernames and lowercasing the text. Additionally, I used Tweepy's get_sentiment function to obtain the sentiment of each tweet, according to Tweepy's corpus.
 
 2. **Tweet Query**
-    For the topic of my tweets I chose the word 'vaccine,' specifically because it is a hot topic in the media right now with both very strong positive and very strong negative sentiments being expressed.
+    For the topic of my tweets I chose the word 'vaccine,' specifically because it is a hot topic in the media right now, and I hoped that I would be able to observe both very strong positive and very strong negative sentiments.
 
 3. **Further Processing**
     After calling the Twitter API an ample number of times, I gathered a total of 4330 tweets, however, after removing non-english tweets and retweets, there were 2298 tweets remaining. In addition, I manually classified these tweets as 'positive', 'negative', or 'neutral/other'.
@@ -12,9 +12,7 @@
 4. **Frequency Distributions**
 
 
-    *According to my Tweepy's get_sentiment classification:*
-
-    Sentiment percentage:
+    *According to Tweepy's get_sentiment classification:*
 
     |sentiment|tweet #|percentage|
     |---------|:-----:|----------|
@@ -22,35 +20,7 @@
     |negative|558|24.28 %|
     |neutral|666|28.98 %|
 
-    20 most common words:
-
-    | rank  | positive  | negative  |
-    |-------|:---------:|----------:|
-    | 1  | 'will', 284  | 'will', 192  |
-    | 2 | 'not', 188  | 'not', 112  |
-    | 3  |  'flu', 155 | 'people', 92  |
-    |  4 |  'people', 141 | 'one', 86  |
-    |  5 | 'get', 129  | 'make', 84  |
-    |  6 | 'covid', 124 | 'coronavirus', 82 |
-    | 7  | 'no', 122 | 'no', 78 |
-    | 8  |  'can', 103 | 'get', 74 |
-    |  9 | 'just', 94  | 'fda', 68 |
-    | 10 | 'us', 88 | 'election', 68  |
-    | 11  | 'one', 81  | 'day', 67 |
-    | 12  | 'now', 79  |  'covid', 62 |
-    |  13 | 'effective', 77 |'trump', 60  |
-    |  14 | 'virus', 73 | 'virus', 60 |
-    | 15  | 'trump', 73  | 'unlikely', 60  |
-    |  16 |  'new', 72 | 'standards', 59  |
-    | 17  |  'safe', 72 |  'announce', 57 |
-    |  18 | 'first', 68  | 'flu', 54  |
-    |  19 | 'available', 67 | 'tougher', 54  |
-    | 20  | 'take', 66 | 'just', 53  |
-
-
     *According to my manual sentiment classification:*
-
-    Sentiment percentage:
 
     |sentiment|tweet #|percentage|
     |---------|:-----:|----------|
@@ -58,7 +28,11 @@
     |negative|1066|46.39 %|
     |neutral|778|33.86 %|
 
-    20 most common words:
+    Comparing this data, it is quite clear that the Tweepy get_sentiment classification labeled considerably more tweets as 'positive' than did I manually. I hypothesize that the two main reasons for this is: 1) lack of context and 2) sarcasm. Many of the tweets that I labeled as 'negative' were sarcastically making fun of an original tweet or an opposing viewpoint, and it is not surprising that a non-human classifier would fail to recognize a negative sentiment if a tweet contained enough positive words.
+    A more tangible example of this: when examining the frequency distributions of positive tweets, the Tweepy sample labeled 'trump' as one of the top 20 most common words (with around 80 occurrences), while the manual sample did not. Having manually classified the tweets, I observed that very few tweets containing the word 'trump' had a positive sentiment, while the rest had a negative sentiment conveyed with sarcasm.
+
+
+    20 most common words from the manually classified sample:
 
     | rank  | positive  | negative  |
     |---|:---:|---:|
@@ -83,7 +57,6 @@
     |  19 | 'effective', 27  | 'coronavirus', 60  |
     | 20  |  'available', 27 | 'make', 59  |
 
-    Comparing this data, it is quite clear that the Tweepy get_sentiment classification labeled considerably more tweets as 'positive' than did I manually. I hypothesize that the two main reasons for this is: 1) lack of context and 2)sarcasm. Many of the tweets that I labeled as 'negative' were sarcastically making fun of an original tweet or an opposing viewpoint, and it is not surprising that a non-human classifier would fail to recognize a negative sentiment if a tweet contained enough positive words.
 
 5. **Most Common Collocations**
 
