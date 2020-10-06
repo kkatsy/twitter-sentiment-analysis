@@ -90,14 +90,42 @@
     <table>
     <tr><th>Most common positive collocations: </th><th>Most common negative collocations:</th></tr>
     <tr><td>
-
+    |   |
+    |---|
     |'herd immunity'|
     |'156 countries'|
+    |'announce tougher'|
+    |'tougher standards'|
+    |'cleared election'|
+    |'yellow fever'|
+    |'safe effective'|
+    |'freedom choice'|
+    |'flu shot'|
+    |'important ever'|
+    |'election day'|
+    |'allocation deal'|
+    |'make unlikely'|
+    |'medical freedom'|
+    |'covax facility'|
 
     </td><td>
-
+    |   |
+    |---|
     |'herd immunity'|
     |'bill gates'|
+    |'6 months'|
+    |'announce tougher'|
+    |'tougher standards'|
+    |'flu shot'|
+    |'cleared election'|
+    |'election day'|
+    |'cdc scandal'|
+    |'make unlikely'|
+    |'public health'|
+    |'wear mask'|
+    |'unlikely one'|
+    |'big pharma'|
+    |'death toll'|
 
     </td></tr> </table>
 
