@@ -88,9 +88,9 @@
 5. **Most Common Collocations**
 
     <table>
-    <tr><th>Most common positive collocations: </th><th>Most common negative collocations:</th></tr>
+
     <tr><td>
-    |   |
+    | Most common positive collocations:  |
     |---|
     |'herd immunity'|
     |'156 countries'|
@@ -109,7 +109,7 @@
     |'covax facility'|
 
     </td><td>
-    |   |
+    | Most common negative collocations:  |
     |---|
     |'herd immunity'|
     |'bill gates'|
@@ -128,12 +128,6 @@
     |'death toll'|
 
     </td></tr> </table>
-
-    Most common positive collocations:
-    ('herd immunity'), ('156 countries'), ('announce tougher'), ('tougher standards'), ('cleared election'), ('yellow fever'), ('safe effective'), ('freedom choice'), ('flu shot'), ('important ever'), ('election day'), ('allocation deal'), ('make unlikely'), ('medical freedom'), ('covax facility')
-
-    Most common negative collocations:
-    ('herd immunity'), ('bill gates'), ('6 months'), ('announce tougher'), ('tougher standards'), ('flu shot'), ('cleared election'), ('election day'), ('cdc scandal'), ('make unlikely'), ('public health'), ('wear mask'), ('unlikely one'), ('big pharma'), ('death toll')
 
 6. **Creating Train Set and Test Set**
 
