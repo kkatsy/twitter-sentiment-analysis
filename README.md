@@ -1,18 +1,21 @@
 # twitter-sentiment-analysis
 
-1. **Getting the Tweets**
-    I used the Tweepy library to access the Twitter API and gather tweets. Before storing the queries, I preprocessed the tweet text by removing special characters, numbers, and usernames and lowercasing the text. Additionally, I used Tweepy's get_sentiment function to obtain the sentiment of each tweet, according to Tweepy's corpus.
 
-2. **Tweet Query**
+1. **Tweet Query**
     For the topic of my tweets I chose the word 'vaccine,' specifically because it is a hot topic in the media right now, and I hoped that I would be able to observe both very strong positive and very strong negative sentiments.
+
+
+2. **Getting the Tweets**
+    I used the Tweepy library to access the Twitter API and gather tweets. Before storing the queries, I preprocessed the tweet text by removing special characters, numbers, and usernames and lowercasing the text. Additionally, I used Tweepy's get_sentiment function to obtain the sentiment of each tweet, according to Tweepy's corpus.
 
 3. **Further Processing**
     After calling the Twitter API an ample number of times, I gathered a total of 4330 tweets, however, after removing non-english tweets and retweets, there were 2298 tweets remaining. In addition, I manually classified these tweets as 'positive', 'negative', or 'neutral/other'.
 
 4. **Frequency Distributions**
 
-
-    *According to Tweepy's get_sentiment classification:*
+    <table>
+    <tr><th>Tweepy's get_sentiment classification:</th><th>My manual sentiment classification:</th></tr>
+    <tr><td>
 
     |sentiment|tweet #|percentage|
     |---------|:-----:|----------|
@@ -20,13 +23,15 @@
     |negative|558|24.28 %|
     |neutral|666|28.98 %|
 
-    *According to my manual sentiment classification:*
+    </td><td>
 
     |sentiment|tweet #|percentage|
     |---------|:-----:|----------|
     |positive|454|19.76 %|
     |negative|1066|46.39 %|
     |neutral|778|33.86 %|
+
+    </td></tr> </table>
 
     Comparing this data, it is quite clear that the Tweepy get_sentiment classification labeled considerably more tweets as 'positive' than did I manually. I hypothesize that the two main reasons for this is: 1) lack of context and 2) sarcasm. Many of the tweets that I labeled as 'negative' were sarcastically making fun of an original tweet or an opposing viewpoint, and it is not surprising that a non-human classifier would fail to recognize a negative sentiment if a tweet contained enough positive words.
     A more tangible example of this: when examining the frequency distributions of positive tweets, the Tweepy sample labeled 'trump' as one of the top 20 most common words (with around 80 occurrences), while the manual sample did not. Having manually classified the tweets, I observed that very few tweets containing the word 'trump' had a positive sentiment, while the rest had a negative sentiment conveyed with sarcasm.
@@ -111,9 +116,13 @@
 - Initial accuracy:                   0.7458563535911602
 - With top ten collocations:          0.7821229050279329
 
-8. **Sciency Conclusions**
+8. **Sklearn, Keras, and NN**
 
-9. **Further Ruminations**
+9. **Classification Conclusions**
+
+10. **Issues and Improvements**
+
+11. **Further Ruminations**
 
 
 **Files:**
@@ -139,3 +148,5 @@
 - [Zipf’s word frequency law in natural language](https://dwulff.github.io/_Naturallanguage/Literature/ZipfLaw2.pdf)
 - [Negation handling in sentiment analysis](http://www.jcomputers.us/vol12/jcp1205-11.pdf)
 - [The Disputed Federalist Papers](http://pages.cs.wisc.edu/~gfung/federalist.pdf)
+- [Imbalanced classes in data set](https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/)
+- [King – Man + Woman = Queen: The Marvelous Mathematics of Computational Linguistics](https://www.technologyreview.com/2015/09/17/166211/king-man-woman-queen-the-marvelous-mathematics-of-computational-linguistics/)

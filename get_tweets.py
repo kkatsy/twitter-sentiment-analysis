@@ -111,6 +111,8 @@ class Twitter(object):
         return processed_tweets
 
 
+#######################################################################################################################
+
 # start timer
 start_time = time.time()
 

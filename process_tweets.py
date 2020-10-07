@@ -68,3 +68,6 @@ for tweet in tweet_list:
         with open('filtered_' + str(int(classified/100)) + '.pickle', 'wb') as file:
             pickle.dump(sentiment_batch, file)
         sentiment_batch = []
+
+
+#######################################################################################################################
