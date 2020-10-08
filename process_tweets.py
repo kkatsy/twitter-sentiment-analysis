@@ -5,12 +5,9 @@ import re
 
 # aggregate all preprocessed tweets into single list
 tweet_list = []
-call_num = 0
-while os.path.isfile('processed_tweets_' + str(call_num) + '.pickle'):
-    with open('processed_tweets_' + str(call_num) + '.pickle', 'rb') as f:
-        tweet_batch = pickle.load(f)
-    tweet_list.extend(tweet_batch)
-    call_num += 1
+if os.path.isfile('processed_tweets.pickle'):
+    with open('processed_tweets.pickle', 'rb') as f:
+        tweet_list = pickle.load(f)
 
 length_b = len(tweet_list)
 
@@ -48,7 +45,7 @@ for tweet in tweet_list:
     tweet['filtered'] = filtered
 
 # manually classify tweets
-classified = 0
+classified_num = 0
 sentiment_batch = []
 for tweet in tweet_list:
     print(tweet['text'])
@@ -60,14 +57,25 @@ for tweet in tweet_list:
         tweet['man_sent'] = 'negative'
     else:
         tweet['man_sent'] = 'neutral'
-    classified += 1
-    print('classified ' + str(classified) + ' out of ' + str(len(tweet_list)) + ' tweets')
+    classified_num += 1
+    print('classified ' + str(classified_num) + ' out of ' + str(len(tweet_list)) + ' tweets')
     sentiment_batch.append(tweet)
 
-    if (classified % 100 == 0) or (classified == len(tweet_list)):
-        with open('filtered_' + str(int(classified/100)) + '.pickle', 'wb') as file:
+    if (classified_num % 100 == 0) or (classified_num == len(tweet_list)):
+        with open('filtered_' + str(int(classified_num/100)) + '.pickle', 'wb') as file:
             pickle.dump(sentiment_batch, file)
         sentiment_batch = []
 
+# aggregate all classified tweets into single list
+classified = []
+call_num = 1
+while os.path.isfile('filtered_' + str(call_num) + '.pickle'):
+    with open('filtered_' + str(call_num) + '.pickle', 'rb') as f:
+        tweet_batch = pickle.load(f)
+    classified.extend(tweet_batch)
+    call_num += 1
 
+# create file and store pulled tweets
+with open('filtered.pickle', 'wb') as f:
+    pickle.dump(classified, f)
 #######################################################################################################################

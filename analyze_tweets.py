@@ -6,13 +6,10 @@ from nltk.metrics import BigramAssocMeasures
 from nltk.corpus import stopwords
 
 # aggregate all classified tweets into single list
-classified = []
-call_num = 1
-while os.path.isfile('filtered_' + str(call_num) + '.pickle'):
-    with open('filtered_' + str(call_num) + '.pickle', 'rb') as f:
-        tweet_batch = pickle.load(f)
-    classified.extend(tweet_batch)
-    call_num += 1
+tweet_list = []
+if os.path.isfile('filtered.pickle'):
+    with open('filtered.pickle', 'rb') as f:
+        classified = pickle.load(f)
 
 # get info + tokens for each type of tweet, using man_sent
 total_tweets = len(classified)

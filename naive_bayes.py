@@ -3,18 +3,13 @@ from nltk.metrics import BigramAssocMeasures
 from nltk.collocations import TrigramCollocationFinder
 from nltk.metrics import TrigramAssocMeasures
 import nltk
-import pickle
-import os
-import random
+import pickle, os, random
 
 # aggregate all classified tweets into single list
 classified = []
-call_num = 1
-while os.path.isfile('filtered_' + str(call_num) + '.pickle'):
-    with open('filtered_' + str(call_num) + '.pickle', 'rb') as f:
-        tweet_batch = pickle.load(f)
-    classified.extend(tweet_batch)
-    call_num += 1
+if os.path.isfile('filtered.pickle'):
+    with open('filtered.pickle', 'rb') as f:
+        classified = pickle.load(f)
 
 pos_tweets = []
 neg_tweets = []

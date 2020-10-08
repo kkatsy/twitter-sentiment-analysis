@@ -9,9 +9,6 @@ from textblob import TextBlob
 # max num tweet queries per 15 minutes
 LIMIT = 200
 
-# file containing unprocessed tweets
-TWEETS_FILENAME = 'processed_tweets.pickle'
-
 
 class Twitter(object):
     """
@@ -121,8 +118,8 @@ api = Twitter()
 
 # if file exists and has preexisting data
 tweets = []
-if os.path.isfile(TWEETS_FILENAME):
-    with open(TWEETS_FILENAME, 'rb') as f:
+if os.path.isfile('processed_tweets.pickle'):
+    with open('processed_tweets.pickle', 'rb') as f:
         tweets = pickle.load(f)
 
 # calling function to get tweets
@@ -132,6 +129,15 @@ processed.extend(tweets)
 end_time = time.time()
 print("tweet collection took", ((end_time - start_time) / 60), "minutes")
 
+# aggregate all preprocessed tweets into single list
+tweet_list = []
+call_num = 0
+while os.path.isfile('processed_tweets_' + str(call_num) + '.pickle'):
+    with open('processed_tweets_' + str(call_num) + '.pickle', 'rb') as f:
+        tweet_batch = pickle.load(f)
+    tweet_list.extend(tweet_batch)
+    call_num += 1
+
 # create file and store pulled tweets
-with open(TWEETS_FILENAME, 'wb') as f:
-    pickle.dump(processed, f)
+with open('processed_tweets.pickle', 'wb') as f:
+    pickle.dump(tweet_list, f)
