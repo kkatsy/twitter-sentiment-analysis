@@ -78,4 +78,5 @@ while os.path.isfile('filtered_' + str(call_num) + '.pickle'):
 # create file and store pulled tweets
 with open('filtered.pickle', 'wb') as f:
     pickle.dump(classified, f)
+
 #######################################################################################################################

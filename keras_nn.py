@@ -1,16 +1,14 @@
 import os, pickle, random
 import pandas as pd
-import numpy as np
-from pandas import DataFrame
 from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from keras.models import Sequential
 from keras import layers
 from tensorflow import keras
 
 
 def get_from_file():
-    # aggregate all preprocessed tweets into single list
+    # aggregate all classified tweets into single list
     classified = []
     if os.path.isfile('filtered.pickle'):
         with open('filtered.pickle', 'rb') as f:
@@ -21,7 +19,6 @@ def get_from_file():
 
 def get_equal_class(classified):
     # sort tweets into pos and neg
-    # get df with equal sized classes
     pos_tweets = []
     neg_tweets = []
     for tweet in classified:
@@ -30,6 +27,7 @@ def get_equal_class(classified):
         if tweet['man_sent'] == 'negative':
             neg_tweets.append((' '.join(tweet['word_list']), tweet['man_sent']))
 
+    # get list with equal sized classes
     max_num = min(len(pos_tweets), len(neg_tweets))
     equal_class = random.sample(pos_tweets, max_num) + random.sample(neg_tweets, max_num)
     random.shuffle(equal_class)
@@ -38,40 +36,54 @@ def get_equal_class(classified):
 
 
 def get_ready_data(data):
+    # create data frame from list of tuples
     tweet_df = pd.DataFrame(data, columns=['tokens', 'sentiment'])
 
-    # tweet_list = [' '.join(datum[0]) for datum in data]
+    # bag of words vectorization of tokens
     bow_vectorizer = CountVectorizer(lowercase=False)
     x = bow_vectorizer.fit_transform(tweet_df['tokens']).toarray()
 
+    # get boolean val of sentiment
     tweet_df['sentiment'] = tweet_df['sentiment'].apply(lambda x: 1 if x == 'positive' else 0)
     y = tweet_df['sentiment'].values
-    # df = DataFrame(data, columns=['tokens', 'sentiment'])
+
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
     return x_train, x_test, y_train, y_test
 
 
-#######################################################################################################################
+def run_nn(x_train, x_test, y_train, y_test, epochs, batch_size):
+    # get number of features/words
+    input_dim = x_train.shape[1]
+
+    # create sequential model
+    model = Sequential()
+    model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
+    model.add(layers.Dense(1, activation='sigmoid'))
+    opt = keras.optimizers.Adam(learning_rate=0.0001)
+    model.compile(loss='binary_crossentropy', optimizer=opt, metrics=['accuracy'])
+    model.summary()
+
+    # fit model and set params
+    history = model.fit(x_train, y_train, epochs=epochs, verbose=False,
+                        batch_size=batch_size, validation_data=(x_test, y_test))
+
+    # get classification accuracies
+    _, train_accuracy = model.evaluate(x_train, y_train, verbose=False)
+    _, test_accuracy = model.evaluate(x_test, y_test, verbose=False)
+
+    return train_accuracy, test_accuracy
+
+
+########################################################################################################################
 
 tweets = get_from_file()
+
 equal_tweets = get_equal_class(tweets)
+
 x_train, x_test, y_train, y_test = get_ready_data(equal_tweets)
-input_dim = x_train.shape[1]
-print(input_dim)
 
-model = Sequential()
-model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
-model.add(layers.Dense(1, activation='sigmoid'))
-opt = keras.optimizers.Adam(learning_rate=0.0001)
-model.compile(loss='binary_crossentropy', optimizer=opt, metrics=['accuracy'])
-model.summary()
+train_acc, test_acc = run_nn(x_train, x_test, y_train, y_test, 50, 10)
 
-history = model.fit(x_train, y_train, epochs=100,
-                    verbose=False, batch_size=10,
-                    validation_data=(x_test, y_test))
-
-_, accuracy = model.evaluate(x_train, y_train, verbose=False)
-print("Training Accuracy: {:.2f}".format(accuracy * 100))
-_, accuracy = model.evaluate(x_test, y_test, verbose=False)
-print("Testing Accuracy:  {:.2f}".format(accuracy * 100))
+print("Training Accuracy:  {:.2f}".format(train_acc * 100))
+print("Testing Accuracy:  {:.2f}".format(test_acc * 100))

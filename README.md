@@ -1,17 +1,17 @@
 # twitter-sentiment-analysis
 
 
-1. **Tweet Query**
+1. **Tweet Query:**
     For the topic of my tweets I chose the word 'vaccine,' specifically because it is a hot topic in the media right now, and I hoped that I would be able to observe both very strong positive and very strong negative sentiments.
 
 
-2. **Getting the Tweets**
+2. **Getting the Tweets:**
     I used the Tweepy library to access the Twitter API and gather tweets. Before storing the queries, I preprocessed the tweet text by removing special characters, numbers, and usernames and lowercasing the text. Additionally, I used Tweepy's get_sentiment function to obtain the sentiment of each tweet, according to Tweepy's corpus.
 
-3. **Further Processing**
+3. **Further Processing:**
     After calling the Twitter API an ample number of times, I gathered a total of 4330 tweets, however, after removing non-english tweets and retweets, there were 2298 tweets remaining. In addition, I manually classified these tweets as 'positive', 'negative', or 'neutral/other'.
 
-4. **Frequency Distributions**
+4. **Frequency Distributions:**
 
     <table>
     <tr><th>Tweepy's get_sentiment classification:</th><th>My manual sentiment classification:</th></tr>
@@ -63,7 +63,7 @@
     | 20  |  'available', 27 | 'make', 59  |
 
 
-5. **Most Common Collocations**
+5. **Most Common Collocations:**
 
     <table>
 
@@ -109,23 +109,23 @@
 
     </td></tr> </table>
 
-6. **Creating Train Set and Test Set**
+6. **Creating Train Set and Test Set:**
 
-7. **NLTK and Naive Bayes**
+7. **NLTK and Naive Bayes:**
    *Bag of Words Vectorization:*
 - Initial accuracy:                   0.7458563535911602
 - With top ten collocations:          0.7821229050279329
 
-8. **Sklearn, Keras, and NN**
+8. **Sklearn, Keras, and NN:**
 
-9. **Classification Conclusions**
+9. **Classification Conclusions:**
 
-10. **Issues and Improvements**
+10. **Faults and Flaws:**
 
-11. **Further Ruminations**
+11. **Further Ruminations:**
 
 
-**Files:**
+### Files:
 - *get_tweets.py*      - obtaining tweets using Twitter API, basic preprocessing, getting sentiment + polarity using Tweepy library
 - *process_tweets.py*  - processing further, removing duplicates/retweets and stopwords, manual sentiment classification
 - *analyze_tweets.py*  - tweet tokenization, finding frequency distributions, gettings bigrams and most common collocations
@@ -134,7 +134,7 @@
 - *store_tweets.py*    - (TODO)
 
 
-**Sources:**
+### Sources:
 - [pre-processing + word frequency](https://towardsdatascience.com/keras-challenges-the-avengers-541346acb804)
 - [geeks for geeks](https://www.geeksforgeeks.org/twitter-sentiment-analysis-using-python/): twitter api basics
 - [simple example](https://www.laurentluce.com/posts/twitter-sentiment-analysis-using-python-and-nltk/ ): manually classified, nltk, and python
@@ -142,11 +142,12 @@
 - [building corpus + good tutorial](https://towardsdatascience.com/creating-the-twitter-sentiment-analysis-program-in-python-with-naive-bayes-classification-672e5589a7ed)
 - [Stopwords source](https://www.ranks.nl/stopwords)
 - [Bag of Words + TF-IDF](https://towardsdatascience.com/selenium-tweepy-to-scrap-tweets-from-tweeter-and-analysing-sentiments-1804db3478ac)
+- [NN Implementation + Explanations](https://realpython.com/python-keras-text-classification/)
 
-
-**Misc Reading Material:**
+### Misc Reading Material:
 - [Zipf’s word frequency law in natural language](https://dwulff.github.io/_Naturallanguage/Literature/ZipfLaw2.pdf)
 - [Negation handling in sentiment analysis](http://www.jcomputers.us/vol12/jcp1205-11.pdf)
 - [The Disputed Federalist Papers](http://pages.cs.wisc.edu/~gfung/federalist.pdf)
 - [Imbalanced classes in data set](https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/)
-- [King – Man + Woman = Queen: The Marvelous Mathematics of Computational Linguistics](https://www.technologyreview.com/2015/09/17/166211/king-man-woman-queen-the-marvelous-mathematics-of-computational-linguistics/)
+- [King – Man + Woman = Queen](https://www.technologyreview.com/2015/09/17/166211/king-man-woman-queen-the-marvelous-mathematics-of-computational-linguistics/)
+- [Accuracy decreasing with higher epochs](https://stackoverflow.com/questions/53242875/accuracy-decreasing-with-higher-epochs)
