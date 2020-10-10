@@ -102,13 +102,13 @@ class Twitter(object):
 
             # can get 300 tweets every 15 mins
             if count > 0:
-                print("sleeping for 5 mins before next query batch...zzz")
+                print("Sleeping for 5 mins before next query batch...zzz")
                 time.sleep(5 * 60)
 
         return processed_tweets
 
 
-#######################################################################################################################
+########################################################################################################################
 
 # start timer
 start_time = time.time()
@@ -127,7 +127,7 @@ processed = api.get_tweets(query='vaccine', count=1200)
 processed.extend(tweets)
 
 end_time = time.time()
-print("tweet collection took", ((end_time - start_time) / 60), "minutes")
+print("Tweet collection took", ((end_time - start_time) / 60), "minutes")
 
 # aggregate all preprocessed tweets into single list
 tweet_list = []
