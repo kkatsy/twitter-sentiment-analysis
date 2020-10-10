@@ -16,8 +16,7 @@ def get_from_file():
 
 def get_equal_class(classified):
     # sort tweets into pos and neg
-    pos_tweets = []
-    neg_tweets = []
+    pos_tweets, neg_tweets = [], []
     for tweet in classified:
         if tweet['man_sent'] == 'positive':
             pos_tweets.append((tweet['word_list'], tweet['man_sent']))
@@ -37,16 +36,22 @@ def get_train_test(equal_class, test_size, num_bigrams):
     train = equal_class[:int(len(equal_class) * (1 - test_size))]
     test = [tweet for tweet in equal_class if tweet not in train]
 
-    # get words, bigrams for entire train set
+    # get word + bigram features for train set
     word_features, bigram_features = get_tweet_features(train, num_bigrams)
 
-    # get bag of words feature vector for each tweet in train set
+    # get bag of words feature vector for train set
     train_set = []
     for a_tweet in train:
         features = extract_features(a_tweet[0], word_features, bigram_features)
         train_set.append((features, a_tweet[1]))
 
-    return train_set, test, word_features, bigram_features
+    # get bag of words feature vector for test set
+    test_set = []
+    for a_tweet in test:
+        features = extract_features(a_tweet[0], word_features, bigram_features)
+        test_set.append((features, a_tweet[1]))
+
+    return train_set, test_set
 
 
 def get_tweet_features(train, num_bigrams):
@@ -79,20 +84,16 @@ def extract_features(text, word_features, bigram_features):
     return features
 
 
-def run_naive_bayes(train, test, word_f, bigram_f):
+def run_naive_bayes(train, test):
     # create naive bayes classifier
     classifier = nltk.NaiveBayesClassifier.train(train)
 
-    # classify test set, print predictions
+    # run classifier on test set
     correct = 0
     for tweet in test:
-        pred = classifier.classify(extract_features(tweet[0], word_f, bigram_f))
+        pred = classifier.classify(tweet[0])
         if pred == tweet[1]:
             correct += 1
-
-        print('Text: ', tweet[0])
-        print('Prediction: ', pred)
-        print('Actual: ', tweet[1])
 
     # print classification accuracy
     accuracy = correct / len(test)
@@ -106,6 +107,6 @@ equal_tweets = get_equal_class(tweets)
 
 test_size = 0.2
 num_bigram_features = 10
-train, test, word_f, bigram_f = get_train_test(equal_tweets, test_size, num_bigram_features)
+train, test = get_train_test(equal_tweets, test_size, num_bigram_features)
 
-run_naive_bayes(train, test, word_f, bigram_f)
+run_naive_bayes(train, test)

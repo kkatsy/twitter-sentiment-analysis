@@ -1,10 +1,14 @@
 import os, pickle, random
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from keras.models import Sequential
 from keras import layers
 from tensorflow import keras
+import nltk
+from nltk.collocations import BigramCollocationFinder
+from nltk.metrics import BigramAssocMeasures
 
 
 def get_from_file():
@@ -35,19 +39,48 @@ def get_equal_class(classified):
     return equal_class
 
 
-def get_ready_data(data):
+def get_feature_vector(train_set, num_bigrams):
+    # get string of all words in tweets
+    train = (' '.join(train_set.tolist()))
+    all_words = train.split(' ')
+
+    # get all word features in train set
+    word_list = nltk.FreqDist(all_words)
+    word_features = list(word_list.keys())
+
+    # get select bigram features in train set
+    bigram = BigramCollocationFinder.from_words(all_words)
+    top_bigrams = list(bigram.nbest(BigramAssocMeasures.likelihood_ratio, num_bigrams))
+    bigram_features = [(colloc[0] + colloc[1]) for colloc in top_bigrams]
+
+    return word_features + bigram_features
+
+
+def extract_features(x_vals, y_vals, features):
+    # bag of words vectorization of tokens
+    bow_vectorizer = CountVectorizer(vocabulary=features, lowercase=False, ngram_range=(1, 2))
+    x = bow_vectorizer.fit_transform(x_vals).toarray()
+
+    # get boolean val of sentiment
+    y_list = [1 if sent == 'positive' else 0 for sent in y_vals.tolist()]
+    y = np.asarray(y_list)
+
+    return x, y
+
+
+def get_ready_data(data, num_bigrams, test_size):
     # create data frame from list of tuples
     tweet_df = pd.DataFrame(data, columns=['tokens', 'sentiment'])
 
-    # bag of words vectorization of tokens
-    bow_vectorizer = CountVectorizer(lowercase=False)
-    x = bow_vectorizer.fit_transform(tweet_df['tokens']).toarray()
+    # split into test,train of given size
+    X_train, X_test, Y_train, Y_test = train_test_split(tweet_df['tokens'], tweet_df['sentiment'], test_size=test_size)
 
-    # get boolean val of sentiment
-    tweet_df['sentiment'] = tweet_df['sentiment'].apply(lambda x: 1 if x == 'positive' else 0)
-    y = tweet_df['sentiment'].values
+    # get word_ bigram features for train set
+    feature_vec = get_feature_vector(X_train, num_bigrams)
 
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+    # get vectorized x and boolean y
+    x_train, y_train = extract_features(X_train, Y_train, feature_vec)
+    x_test, y_test = extract_features(X_test, Y_test, feature_vec)
 
     return x_train, x_test, y_train, y_test
 
@@ -81,7 +114,9 @@ tweets = get_from_file()
 
 equal_tweets = get_equal_class(tweets)
 
-x_train, x_test, y_train, y_test = get_ready_data(equal_tweets)
+test_size = 0.2
+num_bigrams_features = 10
+x_train, x_test, y_train, y_test = get_ready_data(equal_tweets, num_bigrams_features, test_size)
 
 train_acc, test_acc = run_nn(x_train, x_test, y_train, y_test, 50, 10)
 
