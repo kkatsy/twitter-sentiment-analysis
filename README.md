@@ -110,17 +110,67 @@
     </td></tr> </table>
 
 6. **Creating Train Set and Test Set:**
-
+- 70/30 test split
+- BoW vectorization
+- for nltk: manually shuffle then partition, create boolean vec
+- for keras: sklearn's train_test_split + Count Vectorizer
+- 
 7. **NLTK and Naive Bayes:**
-   *Bag of Words Vectorization:*
-- Initial accuracy:                   0.7458563535911602
-- With top ten collocations:          0.7821229050279329
+Average accuracy for  1 bigrams:  0.7556390977443607
+Average accuracy for  5 bigrams:  0.7593984962406015
+Average accuracy for  10 bigrams:  0.7593984962406015
+Average accuracy for  15 bigrams:  0.7593984962406015
+Average accuracy for  20 bigrams:  0.7593984962406015
+Average accuracy for  30 bigrams:  0.7556390977443607
+Average accuracy for  40 bigrams:  0.7556390977443607
+Average accuracy for  50 bigrams:  0.7556390977443607
+
+
+Average accuracy for  1 bigrams:  0.75
+Average accuracy for  5 bigrams:  0.7537313432835817
+Average accuracy for  10 bigrams:  0.7425373134328358
+Average accuracy for  15 bigrams:  0.7462686567164183
+Average accuracy for  20 bigrams:  0.7462686567164183
+Average accuracy for  30 bigrams:  0.7425373134328358
+Average accuracy for  40 bigrams:  0.7462686567164183
+Average accuracy for  50 bigrams:  0.75
 
 8. **Sklearn, Keras, and NN:**
+50 epochs
+Average accuracy for  1 bigrams:  0.7205128371715546
+Average accuracy for  5 bigrams:  0.7274725437164307
+Average accuracy for  10 bigrams:  0.7278388440608978
+Average accuracy for  15 bigrams:  0.7272893935441971
+Average accuracy for  20 bigrams:  0.7056776732206345
+Average accuracy for  30 bigrams:  0.7205128371715546
+Average accuracy for  40 bigrams:  0.7179487347602844
+Average accuracy for  50 bigrams:  0.7095238268375397
+
+100 epochs
+Average accuracy for  1 bigrams:  0.7236263900995255
+Average accuracy for  5 bigrams:  0.7168498337268829
+Average accuracy for  10 bigrams:  0.7278388440608978
+Average accuracy for  15 bigrams:  0.7214285880327225
+Average accuracy for  20 bigrams:  0.7197802364826202
+Average accuracy for  30 bigrams:  0.7263736426830292
+Average accuracy for  40 bigrams:  0.7309523969888687
+Average accuracy for  50 bigrams:  0.7300366461277008
+
+200 epochs
+Average accuracy for  1 bigrams:  0.723809540271759
+Average accuracy for  5 bigrams:  0.7214285880327225
+Average accuracy for  10 bigrams:  0.7005494683980942
+Average accuracy for  15 bigrams:  0.7064102739095688
+Average accuracy for  20 bigrams:  0.713736280798912
+Average accuracy for  30 bigrams:  0.7177655845880508
+Average accuracy for  40 bigrams:  0.7142857313156128
+Average accuracy for  50 bigrams:  0.712454229593277
 
 9. **Classification Conclusions:**
 
 10. **Faults and Flaws:**
+
+- small data sample, can't add new data because would mess with curr data
 
 11. **Further Ruminations:**
 
