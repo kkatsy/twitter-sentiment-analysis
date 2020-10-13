@@ -21,6 +21,7 @@ def filter_tweets(tweet_list):
         special_free = [word for word in tweet['word_list'] if word.isalnum()]
         tweet['word_list'] = special_free
 
+    # classify language of tweet w langid lib
     # remove non-english and duplicates
     duplicate_check = []
     clean_list = []

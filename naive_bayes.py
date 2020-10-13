@@ -97,16 +97,19 @@ def run_naive_bayes(train, test):
 
     # print classification accuracy
     accuracy = correct / len(test)
-    print('Accuracy: ', accuracy)
+
+    return accuracy
 
 
 ########################################################################################################################
 
 tweets = get_from_file()
+
 equal_tweets = get_equal_class(tweets)
 
 test_size = 0.2
 num_bigram_features = 10
 train, test = get_train_test(equal_tweets, test_size, num_bigram_features)
 
-run_naive_bayes(train, test)
+accuracy = run_naive_bayes(train, test)
+print("Testing Accuracy:  {:.2f}".format(accuracy * 100))

@@ -51,7 +51,7 @@ def get_feature_vector(train_set, num_bigrams):
     # get select bigram features in train set
     bigram = BigramCollocationFinder.from_words(all_words)
     top_bigrams = list(bigram.nbest(BigramAssocMeasures.likelihood_ratio, num_bigrams))
-    bigram_features = [(colloc[0] + colloc[1]) for colloc in top_bigrams]
+    bigram_features = [(colloc[0] + ' ' + colloc[1]) for colloc in top_bigrams]
 
     return word_features + bigram_features
 
@@ -95,11 +95,11 @@ def run_nn(x_train, x_test, y_train, y_test, epochs, batch_size):
     model.add(layers.Dense(1, activation='sigmoid'))
     opt = keras.optimizers.Adam(learning_rate=0.0001)
     model.compile(loss='binary_crossentropy', optimizer=opt, metrics=['accuracy'])
-    model.summary()
+    # model.summary()
 
     # fit model and set params
     history = model.fit(x_train, y_train, epochs=epochs, verbose=False,
-                        batch_size=batch_size, validation_data=(x_test, y_test))
+                        batch_size=batch_size, validation_split=0.2)
 
     # get classification accuracies
     _, train_accuracy = model.evaluate(x_train, y_train, verbose=False)
