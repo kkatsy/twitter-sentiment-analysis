@@ -2,55 +2,55 @@
 
 
 1. **Tweet Query:**
-    For the topic of my tweets I chose the word 'vaccine,' specifically because it is a hot topic in the media right now, and I hoped that I would be able to observe both very strong positive and very strong negative sentiments.
-
+    For my topic of investigation, I chose to look into tweets containing the word "vaccine." I hoped that, since the creation and usage of vaccines is a hot and ambivalent topic nowadays, this query word provide me with tweets of both very positive and very negative sentiments.
 
 2. **Getting the Tweets:**
-    I used the Tweepy library to access the Twitter API and gather tweets. Before storing the queries, I preprocessed the tweet text by removing special characters, numbers, and usernames and lowercasing the text. Additionally, I used Tweepy's get_sentiment function to obtain the sentiment of each tweet, according to Tweepy's corpus.
+
+    I collected tweets using the Twitter API via the [Tweepy](http://docs.tweepy.org/en/latest/api.html#tweepy-api-twitter-api-wrapper) library. All of my tweets were collected over the course of three days mid-September and stored in a single pickle file. As tweets were collected, they underwent basic preprocessing: removal of special characters using regex and getting text sentiment using TextBlob's [sentiment property](https://textblob.readthedocs.io/en/dev/api_reference.html#textblob.blob.TextBlob.sentiment).
 
 3. **Further Processing:**
-    After calling the Twitter API an ample number of times, I gathered a total of 4330 tweets, however, after removing non-english tweets and retweets, there were 2298 tweets remaining. In addition, I manually classified these tweets as 'positive', 'negative', or 'neutral/other'.
+    After calling the Twitter API an ample number of times, I gathered a total of 4330 tweets. After removing non-english tweets and retweets, there were 2298 tweets remaining. These tweets underwent further preprocessing: stop words, links, non-english, and duplicates tweets were removed. In addition, I manually classified the remaining, english-language tweets as 'positive', 'negative', or 'neutral/other'.
+
+    A note on stopwords: while the removal of stop words is not a necessary practice in modern-day speech processing, I made the decision to remove stopwords so that I could reduce the number features in my humbly sized data sample.
 
 4. **Frequency Distributions:**
 
     <table>
-    <tr><th>Tweepy's get_sentiment classification:</th><th>My manual sentiment classification:</th></tr>
+    <tr><th>TextBlob's sentiment property:</th><th>Manual sentiment classification:</th></tr>
     <tr><td>
 
     |sentiment|tweet #|percentage|
-    |---------|:-----:|----------|
+    |:-------:|:-----:|:--------:|
     |positive|1074|46.74 %|
-    |negative|558|24.28 %|
-    |neutral|666|28.98 %|
+    |negative|558 |24.28 %|
+    |neutral |666 |28.98 %|
 
     </td><td>
 
     |sentiment|tweet #|percentage|
-    |---------|:-----:|----------|
-    |positive|454|19.76 %|
+    |:-------:|:-----:|:--------:|
+    |positive|454 |19.76 %|
     |negative|1066|46.39 %|
-    |neutral|778|33.86 %|
+    |neutral |778 |33.86 %|
 
     </td></tr> </table>
 
-    Comparing this data, it is quite clear that the Tweepy get_sentiment classification labeled considerably more tweets as 'positive' than did I manually. I hypothesize that the two main reasons for this is: 1) lack of context and 2) sarcasm. Many of the tweets that I labeled as 'negative' were sarcastically making fun of an original tweet or an opposing viewpoint, and it is not surprising that a non-human classifier would fail to recognize a negative sentiment if a tweet contained enough positive words.
-    A more tangible example of this: when examining the frequency distributions of positive tweets, the Tweepy sample labeled 'trump' as one of the top 20 most common words (with around 80 occurrences), while the manual sample did not. Having manually classified the tweets, I observed that very few tweets containing the word 'trump' had a positive sentiment, while the rest had a negative sentiment conveyed with sarcasm.
+    Comparing this data, it is quite clear that the TextBlob sentiment property labeled considerably more tweets as 'positive' than did I manually. I hypothesize that the two main reasons for this is: 1) error caused lack of social and political context and 2) inability to detect sarcasm. Many of the tweets that I labeled as 'negative' were sarcastically making fun of an opposing viewpoint or made reference to individuals/entities that had certain popular connotations.
 
-
-    20 most common words from the manually classified sample:
+    **20 most common words from the manually classified sample:**
 
     | rank  | positive  | negative  |
-    |---|:---:|---:|
-    | 1  | 'will', 103  |  'will', 292 |
-    | 2 |  'flu', 77 |  'not', 242 |
-    | 3  |  'not', 58 | 'people', 177  |
-    |  4 | 'get', 54)  | 'no', 176  |
-    |  5 |  'can', 51 |  'trump', 146 |
-    |  6 | 'people', 45  | 'get' , 123  |
-    | 7  | 'covid', 41  | 'just', 115  |
-    | 8  | 'coronavirus', 36  | 'covid', 113  |
-    |  9 |  'no', 34 | 'flu', 106  |
-    | 10 | 'safe', 34  |  'virus', 98 |
+    |:-----:|:---------:|:---------:|
+    | 1   | 'will', 103  |  'will', 292 |
+    | 2   |  'flu', 77 |  'not', 242 |
+    | 3   |  'not', 58 | 'people', 177  |
+    |  4  | 'get', 54  | 'no', 176  |
+    |  5  |  'can', 51 |  'trump', 146 |
+    |  6  | 'people', 45  | 'get' , 123  |
+    | 7   | 'covid', 41  | 'just', 115  |
+    | 8   | 'coronavirus', 36  | 'covid', 113  |
+    |  9  |  'no', 34 | 'flu', 106  |
+    | 10  | 'safe', 34  |  'virus', 98 |
     | 11  | 'now', 33  | 'us', 97  |
     | 12  | 'countries', 33  |  'take', 96 |
     |  13 | 'need', 32  |  'can' , 94 |
@@ -70,7 +70,7 @@
     <tr><td>
 
     | Most common positive collocations:|
-    |:---:|
+    |:---------------------------------:|
     |'herd immunity'|
     |'156 countries'|
     |'announce tougher'|
@@ -90,7 +90,7 @@
     </td><td>
 
     | Most common negative collocations:  |
-    |:---:|
+    |:-----------------------------------:|
     |'herd immunity'|
     |'bill gates'|
     |'6 months'|
@@ -116,55 +116,58 @@
 - for keras: sklearn's train_test_split + Count Vectorizer
 - 
 7. **NLTK and Naive Bayes:**
-Average accuracy for  1 bigrams:  0.7556390977443607
-Average accuracy for  5 bigrams:  0.7593984962406015
-Average accuracy for  10 bigrams:  0.7593984962406015
-Average accuracy for  15 bigrams:  0.7593984962406015
-Average accuracy for  20 bigrams:  0.7593984962406015
-Average accuracy for  30 bigrams:  0.7556390977443607
-Average accuracy for  40 bigrams:  0.7556390977443607
-Average accuracy for  50 bigrams:  0.7556390977443607
 
-
-Average accuracy for  1 bigrams:  0.75
-Average accuracy for  5 bigrams:  0.7537313432835817
-Average accuracy for  10 bigrams:  0.7425373134328358
-Average accuracy for  15 bigrams:  0.7462686567164183
-Average accuracy for  20 bigrams:  0.7462686567164183
-Average accuracy for  30 bigrams:  0.7425373134328358
-Average accuracy for  40 bigrams:  0.7462686567164183
-Average accuracy for  50 bigrams:  0.75
+| # of bigram features | average accuracy  |
+|:--------------------:|:-----------------:|
+| 1 bigram    | 0.7215  |
+| 5 bigrams   | 0.7184  |
+| 10 bigrams  | 0.7256  |
+| 15 bigrams  | 0.7145  |
+| 20 bigrams  |  0.7156 |
+| 30 bigrams  | 0.7195  |
+| 40 bigrams  | 0.7115  |
+| 50 bigrams  | 0.7173  |
 
 8. **Sklearn, Keras, and NN:**
-50 epochs
-Average accuracy for  1 bigrams:  0.7205128371715546
-Average accuracy for  5 bigrams:  0.7274725437164307
-Average accuracy for  10 bigrams:  0.7278388440608978
-Average accuracy for  15 bigrams:  0.7272893935441971
-Average accuracy for  20 bigrams:  0.7056776732206345
-Average accuracy for  30 bigrams:  0.7205128371715546
-Average accuracy for  40 bigrams:  0.7179487347602844
-Average accuracy for  50 bigrams:  0.7095238268375397
 
-100 epochs
-Average accuracy for  1 bigrams:  0.7236263900995255
-Average accuracy for  5 bigrams:  0.7168498337268829
-Average accuracy for  10 bigrams:  0.7278388440608978
-Average accuracy for  15 bigrams:  0.7214285880327225
-Average accuracy for  20 bigrams:  0.7197802364826202
-Average accuracy for  30 bigrams:  0.7263736426830292
-Average accuracy for  40 bigrams:  0.7309523969888687
-Average accuracy for  50 bigrams:  0.7300366461277008
+**Accuracy with 50 epochs:**
 
-200 epochs
-Average accuracy for  1 bigrams:  0.723809540271759
-Average accuracy for  5 bigrams:  0.7214285880327225
-Average accuracy for  10 bigrams:  0.7005494683980942
-Average accuracy for  15 bigrams:  0.7064102739095688
-Average accuracy for  20 bigrams:  0.713736280798912
-Average accuracy for  30 bigrams:  0.7177655845880508
-Average accuracy for  40 bigrams:  0.7142857313156128
-Average accuracy for  50 bigrams:  0.712454229593277
+| # of bigram features | average accuracy  |
+|:--------------------:|:-----------------:|
+| 1 bigram    | 0.7205 |
+| 5 bigrams   | 0.7275 |
+| 10 bigrams  | 0.7278 |
+| 15 bigrams  | 0.7273 |
+| 20 bigrams  | 0.7057 |
+| 30 bigrams  | 0.7205 |
+| 40 bigrams  | 0.7179 |
+| 50 bigrams  | 0.7095 |
+
+**Accuracy with 100 epochs:**
+
+| # of bigram features | average accuracy  |
+|:--------------------:|:-----------------:|
+| 1 bigram    | 0.7236 |
+| 5 bigrams   | 0.7168 |
+| 10 bigrams  | 0.7278 |
+| 15 bigrams  | 0.7214 |
+| 20 bigrams  | 0.7198 |
+| 30 bigrams  | 0.7264 |
+| 40 bigrams  | 0.7310 |
+| 50 bigrams  | 0.7300 |
+
+**Accuracy with 200 epochs:**
+
+| # of bigram features | average accuracy  |
+|:--------------------:|:-----------------:|
+| 1 bigram    | 0.7238 |
+| 5 bigrams   | 0.7214 |
+| 10 bigrams  | 0.7005 |
+| 15 bigrams  | 0.7064 |
+| 20 bigrams  | 0.7137 |
+| 30 bigrams  | 0.7178 |
+| 40 bigrams  | 0.7143 |
+| 50 bigrams  | 0.7125 |
 
 9. **Classification Conclusions:**
 
@@ -176,28 +179,27 @@ Average accuracy for  50 bigrams:  0.712454229593277
 
 
 ### Files:
-- *get_tweets.py*      - obtaining tweets using Twitter API, basic preprocessing, getting sentiment + polarity using Tweepy library
-- *process_tweets.py*  - processing further, removing duplicates/retweets and stopwords, manual sentiment classification
+- *get_tweets.py*      - obtaining tweets using Twitter API and Tweepy, basic preprocessing, getting sentiment + polarity using TextBlob, storing results in pickle file
+- *process_tweets.py*  - processing further, removing duplicates/retweets and stop words, manual sentiment classification, storing results in pickle file
 - *analyze_tweets.py*  - tweet tokenization, finding frequency distributions, gettings bigrams and most common collocations
-- *naive_bayes.py*     - creating equal size train/test sets, BoW vectorization, plus collocations, nltk NaiveBayes classification
-- *keras_nn.py*        - (TODO)
-- *store_tweets.py*    - (TODO)
+- *naive_bayes.py*     - creating equal size train/test sets, manual BoW vectorization, nltk NaiveBayes classification
+- *keras_nn.py*        - creating train/test sets with sklearn train_test_split, getting Bow vector using sklearn CountVectorizer, keras NN classification
+- *store_tweets.py*    - (TODO) store processed/filtered tweets in a MySQL DB or RedisDB
 
 
 ### Sources:
-- [pre-processing + word frequency](https://towardsdatascience.com/keras-challenges-the-avengers-541346acb804)
-- [geeks for geeks](https://www.geeksforgeeks.org/twitter-sentiment-analysis-using-python/): twitter api basics
-- [simple example](https://www.laurentluce.com/posts/twitter-sentiment-analysis-using-python-and-nltk/ ): manually classified, nltk, and python
-- [nltk stop words](https://www.geeksforgeeks.org/removing-stop-words-nltk-python/)
-- [building corpus + good tutorial](https://towardsdatascience.com/creating-the-twitter-sentiment-analysis-program-in-python-with-naive-bayes-classification-672e5589a7ed)
-- [Stopwords source](https://www.ranks.nl/stopwords)
-- [Bag of Words + TF-IDF](https://towardsdatascience.com/selenium-tweepy-to-scrap-tweets-from-tweeter-and-analysing-sentiments-1804db3478ac)
-- [NN Implementation + Explanations](https://realpython.com/python-keras-text-classification/)
+- [Pre-processing Tweet Data](https://towardsdatascience.com/keras-challenges-the-avengers-541346acb804)
+- [Twitter API Basics with Tweepy](https://www.geeksforgeeks.org/twitter-sentiment-analysis-using-python/)
+- [Simple NLTK-only Example](https://www.laurentluce.com/posts/twitter-sentiment-analysis-using-python-and-nltk/)
+- [Non-NLTK Stop Words Source](https://www.ranks.nl/stopwords)
+- [Bag of Words + TF-IDF Vectorization](https://towardsdatascience.com/selenium-tweepy-to-scrap-tweets-from-tweeter-and-analysing-sentiments-1804db3478ac)
+- [NN Implementation + Great Explanations](https://realpython.com/python-keras-text-classification/)
+
 
 ### Misc Reading Material:
-- [Zipf’s word frequency law in natural language](https://dwulff.github.io/_Naturallanguage/Literature/ZipfLaw2.pdf)
-- [Negation handling in sentiment analysis](http://www.jcomputers.us/vol12/jcp1205-11.pdf)
+- [Zipf’s Word Frequency Law in NL](https://dwulff.github.io/_Naturallanguage/Literature/ZipfLaw2.pdf)
+- [Negation Handling in Sentiment Analysis](http://www.jcomputers.us/vol12/jcp1205-11.pdf)
 - [The Disputed Federalist Papers](http://pages.cs.wisc.edu/~gfung/federalist.pdf)
-- [Imbalanced classes in data set](https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/)
+- [Imbalanced classes in Data](https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/)
 - [King – Man + Woman = Queen](https://www.technologyreview.com/2015/09/17/166211/king-man-woman-queen-the-marvelous-mathematics-of-computational-linguistics/)
 - [Accuracy decreasing with higher epochs](https://stackoverflow.com/questions/53242875/accuracy-decreasing-with-higher-epochs)
