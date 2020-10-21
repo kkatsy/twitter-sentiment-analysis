@@ -3,8 +3,7 @@
 
 1. **Tweet Query:**
 
-
-   For my topic of investigation, I chose to look into tweets containing the word "vaccine." I hoped that, since the creation and usage of vaccines is a hot and ambivalent topic nowadays, this query word provide me with tweets of both very positive and very negative sentiments.
+   For my topic of investigation, I chose to look into tweets containing the word "vaccine." I hoped that, since the creation and usage of vaccines is a hot and ambivalent topic nowadays due to COVID, this query word provide me with tweets of both very positive and very negative sentiment.
 
 2. **Getting the Tweets:**
 
@@ -14,11 +13,11 @@
 
 3. **Further Processing:**
 
-   After calling the Twitter API an ample number of times, I gathered a total of 4330 tweets. After removing non-english tweets and retweets, there were 2298 tweets remaining. These tweets underwent further preprocessing: stop words, links, non-english, and duplicates tweets were removed.
+   After calling the Twitter API an ample number of times, I gathered a total of 4330 tweets. After removing non-english tweets and retweets, there were 2298 tweets remaining. These tweets underwent further preprocessing: stop words, links, and duplicate tweets were removed.
 
-   In addition, I manually classified the remaining, english-language tweets as 'positive', 'negative', or 'neutral/other' based on their sentiment. Manual classification proved to be a bit of a challenge for a couple of reasons. I did not quite realize how time consuming of a task manual classification and how difficult it can be to make a call regarding sentiment. There were moments where I felt like I was slightly redefining what it meant for a tweet to be 'positive' or 'negative' while in the process of classification. Sometimes, a tweet would express negativity in one sentence and positivity in another, and I had to make a call regarding dominant sentiment. Additionally, it was sometimes difficult to tell if a tweet was sarcastic or not without full thread context.
+   In addition, I manually classified the remaining, english-language tweets as 'positive', 'negative', or 'neutral/other' based on their sentiment. Manual classification proved to be a bit of a challenge for a couple of reasons. I did not quite realize how time consuming of a task manual classification would be and how difficult it can be to make a call regarding sentiment. There were moments where I felt like I was slightly redefining what it meant for a tweet to be 'positive' or 'negative' while in the process of classification. Sometimes, a tweet would express negativity in one sentence and positivity in another, and I had to make a call regarding dominant sentiment. Additionally, it was sometimes difficult to tell if a tweet was sarcastic or not without full thread context.
 
-   A note on stopwords: while the removal of stop words is not a necessary practice in modern-day speech processing, I made the decision to remove stopwords since I was planning on using a bag of words vectorization approach. However, I did not use NLTK's list of stopwords but [this one](https://www.ranks.nl/stopwords) instead since I did not want to discard negation words.
+   A note on stopwords: while the removal of stop words is not a necessary practice in modern-day speech processing, I made the decision to remove stopwords since I was planning on using a bag of words vectorization approach. However, I did not use NLTK's list of stopwords but [this one](https://www.ranks.nl/stopwords) instead since I did not want to discard negation words, which are quite important in a sentiment analysis.
 
 4. **Frequency Distributions:**
 
@@ -130,98 +129,101 @@
 
    After doing some googling, I noticed that a common recommended split ratio was 80/20; however, many sources recommended using less data for training if the total data set size was small (so as to prevent overfitting). As a result, I decided to do a 70/30 train/test split for both models.
 
-   *For the Naive Bayes model:* I randomly shuffled my data set, manually split the data into train and test sets. Then, for the vectorization, I got a list of all words in the train set via the NLTK's FreqDist and then created a boolean vector for each tweet for which words from the train set were in/not in each tweet.
+   *For the Naive Bayes model:* I randomly shuffled my data set, then manually split the data into train and test sets. Then, for the vectorization, I got a list of all words in the train set via the NLTK's FreqDist and then created boolean vectors based on what words from the train set were in/not in each tweet.
 
    *For the Neural Network model:* I used sklearn's train_test_split to split the data and used and CountVectorization to get back a boolean bag of words vector for each tweet.
 
 8. **NLTK and Naive Bayes:**
 
-    I wanted to see if perhaps changing the number of features by adding most common bigrams to the feature vector. I ran the model 20 times and averaged the recorded accuracies to obtain an average accuracy for different numbers of bigram BoW features.
+    I wanted to see if perhaps changing the number of features by adding most common bigrams to the feature vector would affect the Naive Bayes model's accuracy. I ran the model 20 times and averaged the recorded accuracies to obtain an average accuracy for different numbers of bigram BoW features.
 
-| # of bigram features | average accuracy  |
-|:--------------------:|:-----------------:|
-| 1 bigram    | 0.7215  |
-| 5 bigrams   | 0.7184  |
-| 10 bigrams  | 0.7256  |
-| 15 bigrams  | 0.7145  |
-| 20 bigrams  |  0.7156 |
-| 30 bigrams  | 0.7195  |
-| 40 bigrams  | 0.7115  |
-| 50 bigrams  | 0.7173  |
+    | # of bigram features | average accuracy  |
+    |:--------------------:|:-----------------:|
+    | 1 bigram    | 0.7215  |
+    | 5 bigrams   | 0.7184  |
+    | 10 bigrams  | 0.7256  |
+    | 15 bigrams  | 0.7145  |
+    | 20 bigrams  |  0.7156 |
+    | 30 bigrams  | 0.7195  |
+    | 40 bigrams  | 0.7115  |
+    | 50 bigrams  | 0.7173  |
 
     However, based on these results, it does not seem that the number of bigram features had any effect on the classification accuracy.
 
 9. **Sklearn, Keras, and NN:**
 
-    As with the Naive Bayes model, I wanted to see if the number of bigram features would have an effect on the NN model accuracy. Additionally, I wanted to see how the number of epochs would impact the model as well. As a result, I ran the model for 50, 100, and 200 epochs with different numbers of bigram BoW features and recorded the average accuracy of 20 runs.
+    As with the Naive Bayes model, I wanted to see if the number of bigram features would have an effect on the NN model's accuracy. Additionally, I wanted to see how the number of epochs would impact the model as well. As a result, I ran the model for 50, 100, and 200 epochs with different numbers of bigram BoW features and recorded the average accuracy of 20 runs.
 
-**Accuracy with 50 epochs:**
+    **Accuracy with 50 epochs:**
 
-| # of bigram features | average accuracy  |
-|:--------------------:|:-----------------:|
-| 1 bigram    | 0.7205 |
-| 5 bigrams   | 0.7275 |
-| 10 bigrams  | 0.7278 |
-| 15 bigrams  | 0.7273 |
-| 20 bigrams  | 0.7057 |
-| 30 bigrams  | 0.7205 |
-| 40 bigrams  | 0.7179 |
-| 50 bigrams  | 0.7095 |
+    | # of bigram features | average accuracy  |
+    |:--------------------:|:-----------------:|
+    | 1 bigram    | 0.7205 |
+    | 5 bigrams   | 0.7275 |
+    | 10 bigrams  | 0.7278 |
+    | 15 bigrams  | 0.7273 |
+    | 20 bigrams  | 0.7057 |
+    | 30 bigrams  | 0.7205 |
+    | 40 bigrams  | 0.7179 |
+    | 50 bigrams  | 0.7095 |
 
-**Accuracy with 100 epochs:**
+    **Accuracy with 100 epochs:**
 
-| # of bigram features | average accuracy  |
-|:--------------------:|:-----------------:|
-| 1 bigram    | 0.7236 |
-| 5 bigrams   | 0.7168 |
-| 10 bigrams  | 0.7278 |
-| 15 bigrams  | 0.7214 |
-| 20 bigrams  | 0.7198 |
-| 30 bigrams  | 0.7264 |
-| 40 bigrams  | 0.7310 |
-| 50 bigrams  | 0.7300 |
+    | # of bigram features | average accuracy  |
+    |:--------------------:|:-----------------:|
+    | 1 bigram    | 0.7236 |
+    | 5 bigrams   | 0.7168 |
+    | 10 bigrams  | 0.7278 |
+    | 15 bigrams  | 0.7214 |
+    | 20 bigrams  | 0.7198 |
+    | 30 bigrams  | 0.7264 |
+    | 40 bigrams  | 0.7310 |
+    | 50 bigrams  | 0.7300 |
 
-**Accuracy with 200 epochs:**
+    **Accuracy with 200 epochs:**
 
-| # of bigram features | average accuracy  |
-|:--------------------:|:-----------------:|
-| 1 bigram    | 0.7238 |
-| 5 bigrams   | 0.7214 |
-| 10 bigrams  | 0.7005 |
-| 15 bigrams  | 0.7064 |
-| 20 bigrams  | 0.7137 |
-| 30 bigrams  | 0.7178 |
-| 40 bigrams  | 0.7143 |
-| 50 bigrams  | 0.7125 |
+    | # of bigram features | average accuracy  |
+    |:--------------------:|:-----------------:|
+    | 1 bigram    | 0.7238 |
+    | 5 bigrams   | 0.7214 |
+    | 10 bigrams  | 0.7005 |
+    | 15 bigrams  | 0.7064 |
+    | 20 bigrams  | 0.7137 |
+    | 30 bigrams  | 0.7178 |
+    | 40 bigrams  | 0.7143 |
+    | 50 bigrams  | 0.7125 |
 
     However, based on these results, it does not seem that either the number of bigram features nor the number of epochs used had a significant effect on the classification accuracy.
 
+    Additionally, when I ran the NN model, I compared the accuracy of the train set to the accuracy of the test set; I generally got around an accuracy in the 90s for the train set and 70s for the test set. This difference in accuracy is an indication of overfitting occurring in the creation of the model, likely another result of having a small data set.
+
 10. **Classification Conclusions:**
-    *For the Naive Bayes model:*
-    *For the Neural Network model:*
-    *Comparison:*
-- num bigrams had little to no impact on accuracy for NB
-- num bigrams and num epochs had little to no impact on accuracy for NN
-- Insignificant difference between NB and NN
-- potential reason: small data set, simple models sometimes perform better
-- higher epochs had no effect or negative effect for NN, even after decreasing learning rate of optimizer
+
+    Based on my observed results, it seems like there was little to no difference in accuracy in terms of the two models. Generally, one would expect the Neural Network to outperform Naive Bayes. However, even after significantly lowering the learning rate for the Adam optimizer, the NN did not do better than Naive Bayes on average. A likely explanation for this observation: simpler models often perform better than complicated models when dealing with small data sets.
 
 11. **Faults and Flaws:**
 
-- small data sample, can't add new data because would mess with curr data
-- not enough data features + overfitting/bias
-- unequal classes caused to decrease already limited amount of data to not overfit
-- NN train vs test accuracy: in the 90s for train but 70s for test -> indicates overfitting
+    *Small Data Set*: Undoubtedly my biggest issue was my small data set, which led to a myriad of issues, including not having enough train data and overfitting, which caused the neural network to perform badly and likely lead to overall lower accuracy than possible. However, simply adding to the data I originally collected was not an option, since the tweets I collected were specific to the date when I collected them and the current events going on at that time. Adding newer tweets would lead to a larger data sample, but it may also undermine the purpose of the project, which focused more on vaccine sentiment during a specific point in the news cycle than the attitude toward all vaccines in general.
+
+    *Unequal Class Size*: Having many more negative than positive tweets is not necessarily a bad thing (it does show that popular sentiment toward the query "vaccine" is largely more negative), but it did lead me to reduce the size of my already small data set to obtain equal class sizes in order to try to avoid potential overfitting towards the dominant class.
+
+    *Overfitting*: Comparing accuracies of the train and test set for the NN model, it was clear that the model was overfitting the train set. Given the small size of the data set, it is also likely that overfitting occurred for the Naive Bayes model as well. This, of course, is not good, because the model created with the train set ends up being a less accurate predictor of the test set's sentiment.
 
 12. **Potential Methods for Improvement:**
-- data augmentation
-- larger sample
-- test with logistic regression
-- TFIDF vectorization (also nltk)
+
+    As I was working on the project and after I had finished the project, I noted several potential improvements that could be implemented that might either address the current models' faults or just lead to overall improvement in classification accuracy.
+
+    *TFIDF Vectorization*: using a vectorization method that relies on compositional semantics rather than just lexical semantics (i.e. what bag of words does) could potentially lead to more accurate classification. The results of the two types of vectorizations would need to compared to determine which provides a better accuracy.
+
+    *Larger Sample*: Having a larger sample may resolve some of the issues that I had encountered. However, as previously mentioned, in order to get a larger sample it would likely be reasonable to get a new data set entirely than to add on to the previously collected tweets.
+
+    *Logistic Regression*: LR is another common, simple classification model. Again, one would have to compare the result of LR with the NN and Naive Bayes to see which model performs best.
+
+    *Data Augmentation:* Additionally, there exist methods to alter existing data to improve the usability of a data set with a smaller size than would be preferred.
 
 13. **Further Ruminations:**
-- but is this useful?
-- my sentiment about these sentiments
+    ...
+
 
 ### Files:
 - *get_tweets.py*      - obtaining tweets using Twitter API and Tweepy, basic preprocessing, getting sentiment + polarity using TextBlob, storing results in pickle file
@@ -247,3 +249,5 @@
 - [Imbalanced classes in Data](https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/)
 - [King – Man + Woman = Queen](https://www.technologyreview.com/2015/09/17/166211/king-man-woman-queen-the-marvelous-mathematics-of-computational-linguistics/)
 - [Accuracy decreasing with higher epochs](https://stackoverflow.com/questions/53242875/accuracy-decreasing-with-higher-epochs)
+- [Data Augmentation library for text](https://towardsdatascience.com/data-augmentation-library-for-text-9661736b13ff)
+- [Data Augmentation techniques for NLP](https://maelfabien.github.io/machinelearning/NLP_8/#)
