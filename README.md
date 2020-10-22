@@ -17,7 +17,7 @@
 
    In addition, I manually classified the remaining, english-language tweets as 'positive', 'negative', or 'neutral/other' based on their sentiment. Manual classification proved to be a bit of a challenge for a couple of reasons. I did not quite realize how time consuming of a task manual classification would be and how difficult it can be to make a call regarding sentiment. There were moments where I felt like I was slightly redefining what it meant for a tweet to be 'positive' or 'negative' while in the process of classification. Sometimes, a tweet would express negativity in one sentence and positivity in another, and I had to make a call regarding dominant sentiment. Additionally, it was sometimes difficult to tell if a tweet was sarcastic or not without full thread context.
 
-   A note on stopwords: while the removal of stop words is not a necessary practice in modern-day speech processing, I made the decision to remove stopwords since I was planning on using a bag of words vectorization approach. However, I did not use NLTK's list of stopwords but [this one](https://www.ranks.nl/stopwords) instead since I did not want to discard negation words, which are quite important in a sentiment analysis.
+   A note on stopwords: while the removal of stop words is not a necessary practice in modern-day speech processing, I made the decision to remove stopwords since I was planning on using a bag of words vectorization approach. However, I did not use NLTK's list of stopwords but [this one](https://www.ranks.nl/stopwords) instead since I did not want to discard negation words, which are quite important in sentiment analysis.
 
 4. **Frequency Distributions:**
 
@@ -41,7 +41,7 @@
 
     </td></tr> </table>
 
-    Comparing this data, it is quite clear that the TextBlob sentiment property labeled considerably more tweets as 'positive' than did I manually. I suspect that the two main reasons for this is: 1) error caused lack of social and political context and 2) inability to detect sarcasm. Many of the tweets that I labeled as 'negative' were sarcastically making fun of an opposing viewpoint or made reference to individuals/entities that had certain popular connotations.
+    Comparing this data, it is quite clear that the TextBlob sentiment property labeled considerably more tweets as 'positive' than did I manually. I suspect that the two main reasons for this are: 1) error caused by lack of social and political context and 2) inability to detect sarcasm. Many of the tweets that I labeled as 'negative' were sarcastically making fun of an opposing viewpoint or made reference to individuals/entities that had certain popular connotations.
 
     Additionally, while I had hoped that this query would provide me with sufficient examples of both sentiments, this percentage breakdown clearly shows an unequal distribution of positive and negative tweets. Compared to the amount of negative tweets, there were very few positive tweets. This inequality creates an issue of unequal class size, which has two solutions: to continue working with a disproportionate amount of negative tweets, or discarding tweets in order to work with smaller but equal sized classes. I chose the latter option, since I did not want my classifier to overfit the dominant class.
 
@@ -231,7 +231,7 @@
 - *analyze_tweets.py*  - tweet tokenization, finding frequency distributions, gettings bigrams and most common collocations
 - *naive_bayes.py*     - creating equal size train/test sets, manual BoW vectorization, nltk NaiveBayes classification
 - *keras_nn.py*        - creating train/test sets with sklearn train_test_split, getting Bow vector using sklearn CountVectorizer, keras NN classification
-- *store_tweets.py*    - (TODO) store processed/filtered tweets in a MySQL DB or RedisDB for practice
+- *store_tweets.py*    - (#TODO) store processed/filtered tweets in a MySQL DB or RedisDB for practice
 
 
 ### Sources:
@@ -242,7 +242,7 @@
 - [NN Implementation + Great Explanations](https://realpython.com/python-keras-text-classification/)
 
 
-### Misc Reading Material:
+### Misc Reading Materials:
 - [Zipf’s Word Frequency Law in NL](https://dwulff.github.io/_Naturallanguage/Literature/ZipfLaw2.pdf)
 - [Negation Handling in Sentiment Analysis](http://www.jcomputers.us/vol12/jcp1205-11.pdf)
 - [The Disputed Federalist Papers](http://pages.cs.wisc.edu/~gfung/federalist.pdf)
