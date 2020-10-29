@@ -1,5 +1,8 @@
 # twitter-sentiment-analysis
 
+0. **Project Summary:**
+
+    *(TODO)* add project summary + goals
 
 1. **Tweet Query:**
 
@@ -152,56 +155,66 @@
 
 9. **Sklearn, Keras, and NN:**
 
-    As with the Naive Bayes model, I wanted to see if the number of bigram features would have an effect on the NN model's accuracy. Additionally, I wanted to see how the number of epochs would impact the model as well. As a result, I ran the model for 50, 100, and 200 epochs with different numbers of bigram BoW features and recorded the average accuracy of 20 runs.
+     As with the Naive Bayes model, I wanted to see if the number of bigram features would have an effect on the NN model's accuracy. Additionally, I wanted to see how the number of epochs would impact the model as well. As a result, I ran the model for 50, 100, and 200 epochs with different numbers of bigram BoW features and recorded the average accuracy of 20 runs.
 
-    **Accuracy with 50 epochs:**
+     **Accuracy with 50 epochs:**
 
-    | # of bigram features | average accuracy  |
-    |:--------------------:|:-----------------:|
-    | 1 bigram    | 0.7205 |
-    | 5 bigrams   | 0.7275 |
-    | 10 bigrams  | 0.7278 |
-    | 15 bigrams  | 0.7273 |
-    | 20 bigrams  | 0.7057 |
-    | 30 bigrams  | 0.7205 |
-    | 40 bigrams  | 0.7179 |
-    | 50 bigrams  | 0.7095 |
+     | # of bigram features | average accuracy  |
+     |:--------------------:|:-----------------:|
+     | 1 bigram    | 0.7205 |
+     | 5 bigrams   | 0.7275 |
+     | 10 bigrams  | 0.7278 |
+     | 15 bigrams  | 0.7273 |
+     | 20 bigrams  | 0.7057 |
+     | 30 bigrams  | 0.7205 |
+     | 40 bigrams  | 0.7179 |
+     | 50 bigrams  | 0.7095 |
 
-    **Accuracy with 100 epochs:**
+     **Accuracy with 100 epochs:**
 
-    | # of bigram features | average accuracy  |
-    |:--------------------:|:-----------------:|
-    | 1 bigram    | 0.7236 |
-    | 5 bigrams   | 0.7168 |
-    | 10 bigrams  | 0.7278 |
-    | 15 bigrams  | 0.7214 |
-    | 20 bigrams  | 0.7198 |
-    | 30 bigrams  | 0.7264 |
-    | 40 bigrams  | 0.7310 |
-    | 50 bigrams  | 0.7300 |
+     | # of bigram features | average accuracy  |
+     |:--------------------:|:-----------------:|
+     | 1 bigram    | 0.7236 |
+     | 5 bigrams   | 0.7168 |
+     | 10 bigrams  | 0.7278 |
+     | 15 bigrams  | 0.7214 |
+     | 20 bigrams  | 0.7198 |
+     | 30 bigrams  | 0.7264 |
+     | 40 bigrams  | 0.7310 |
+     | 50 bigrams  | 0.7300 |
 
-    **Accuracy with 200 epochs:**
+     **Accuracy with 200 epochs:**
 
-    | # of bigram features | average accuracy  |
-    |:--------------------:|:-----------------:|
-    | 1 bigram    | 0.7238 |
-    | 5 bigrams   | 0.7214 |
-    | 10 bigrams  | 0.7005 |
-    | 15 bigrams  | 0.7064 |
-    | 20 bigrams  | 0.7137 |
-    | 30 bigrams  | 0.7178 |
-    | 40 bigrams  | 0.7143 |
-    | 50 bigrams  | 0.7125 |
+     | # of bigram features | average accuracy  |
+     |:--------------------:|:-----------------:|
+     | 1 bigram    | 0.7238 |
+     | 5 bigrams   | 0.7214 |
+     | 10 bigrams  | 0.7005 |
+     | 15 bigrams  | 0.7064 |
+     | 20 bigrams  | 0.7137 |
+     | 30 bigrams  | 0.7178 |
+     | 40 bigrams  | 0.7143 |
+     | 50 bigrams  | 0.7125 |
 
-    However, based on these results, it does not seem that either the number of bigram features nor the number of epochs used had a significant effect on the classification accuracy.
+     However, based on these results, it does not seem that either the number of bigram features nor the number of epochs used had a significant effect on the classification accuracy.
 
-    Additionally, when I ran the NN model, I compared the accuracy of the train set to the accuracy of the test set; I generally got around an accuracy in the 90s for the train set and 70s for the test set. This difference in accuracy is an indication of overfitting occurring in the creation of the model, likely another result of having a small data set.
+     Additionally, when I ran the NN model, I compared the accuracy of the train set to the accuracy of the test set; I generally got around an accuracy in the 90s for the train set and 70s for the test set. This difference in accuracy is an indication of overfitting occurring in the creation of the model, likely another result of having a small data set.
 
-10. **Classification Conclusions:**
+10. **BERT:**
+
+    *(TODO)* create classifier with BERT
+
+11. **LSTM:**
+
+    *(TODO)* create LSTM classifier
+
+12. **Classification Conclusions:**
 
     Based on my observed results, it seems like there was little to no difference in accuracy in terms of the two models. Generally, one would expect the Neural Network to outperform Naive Bayes. However, even after significantly lowering the learning rate for the Adam optimizer, the NN did not do better than Naive Bayes on average. A likely explanation for this observation: simpler models often perform better than complicated models when dealing with small data sets.
 
-11. **Faults and Flaws:**
+    *(TODO)* Add info about precision, recall, F1 scores
+
+13. **Faults and Flaws:**
 
     *Small Data Set*: Undoubtedly my biggest issue was my small data set, which led to a myriad of issues, including not having enough train data and overfitting, which caused the neural network to perform badly and likely lead to overall lower accuracy than possible. However, simply adding to the data I originally collected was not an option, since the tweets I collected were specific to the date when I collected them and the current events going on at that time. Adding newer tweets would lead to a larger data sample, but it may also undermine the purpose of the project, which focused more on vaccine sentiment during a specific point in the news cycle than the attitude toward all vaccines in general.
 
@@ -209,7 +222,7 @@
 
     *Overfitting*: Comparing accuracies of the train and test set for the NN model, it was clear that the model was overfitting the train set. Given the small size of the data set, it is also likely that overfitting occurred for the Naive Bayes model as well. This, of course, is not good, because the model created with the train set ends up being a less accurate predictor of the test set's sentiment.
 
-12. **Potential Methods for Improvement:**
+14. **Potential Methods for Improvement:**
 
     As I was working on the project and after I had finished the project, I noted several potential improvements that could be implemented that might either address the current models' faults or just lead to overall improvement in classification accuracy.
 
@@ -221,7 +234,7 @@
 
     *Data Augmentation:* Additionally, there exist methods to alter existing data to improve the usability of a data set with a smaller size than would be preferred.
 
-13. **Further Ruminations:**
+15. **Further Ruminations:**
     ...
 
 
@@ -231,7 +244,9 @@
 - *analyze_tweets.py*  - tweet tokenization, finding frequency distributions, gettings bigrams and most common collocations
 - *naive_bayes.py*     - creating equal size train/test sets, manual BoW vectorization, nltk NaiveBayes classification
 - *keras_nn.py*        - creating train/test sets with sklearn train_test_split, getting Bow vector using sklearn CountVectorizer, keras NN classification
-- *store_tweets.py*    - (#TODO) store processed/filtered tweets in a MySQL DB or RedisDB for practice
+- *bert.py*            - (TODO)
+- *lstm.py*            - (TODO)
+- *store_tweets.py*    - (TODO) store processed/filtered tweets in a MySQL DB or RedisDB for practice
 
 
 ### Sources:
